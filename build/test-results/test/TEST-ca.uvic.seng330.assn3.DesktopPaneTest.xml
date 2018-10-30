@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ca.uvic.seng330.assn3.DesktopPaneTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2018-10-30T20:32:46" hostname="w134-87-128-069.wireless.uvic.ca" time="3.658">
+  <properties/>
+  <testcase name="should_contain_button" classname="ca.uvic.seng330.assn3.DesktopPaneTest" time="2.572"/>
+  <testcase name="should_contain_field" classname="ca.uvic.seng330.assn3.DesktopPaneTest" time="1.086"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

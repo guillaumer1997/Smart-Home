@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ca.uvic.seng330.assn3.ClickApplicationTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2018-10-30T20:32:49" hostname="w134-87-128-069.wireless.uvic.ca" time="0.911">
+  <properties/>
+  <testcase name="should_click_on_button" classname="ca.uvic.seng330.assn3.ClickApplicationTest" time="0.624"/>
+  <testcase name="should_contain_button" classname="ca.uvic.seng330.assn3.ClickApplicationTest" time="0.286"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,20 +1,31 @@
 package ca.uvic.seng330.assn3.devices;
 
+import ca.uvic.seng330.assn3.devices.Status;
+
 import java.util.UUID;
 
-import org.json.JSONObject;
-import java.util.ArrayList;
+public abstract class Device {
 
+  private final UUID aUuid = UUID.randomUUID();
+  private Status aStatus; // This can't be NULL!
 
-public interface Device {
-		
-	public boolean getPower();
-	public void togglePower();
-	public UUID getIdentifier() ;
-	
-	
-	
-	public Status getStatus();
-	
+  public UUID getIdentifier() {
+    return aUuid;
+  }
+
+  public Status getStatus() {
+    // Since the status can't be NULL, then check IF NULL and IF return dummy
+    // status.
+    return aStatus == null ? Status.NOT_AVAILABLE : aStatus;
+  }
+
+  public void setStatus(Status status) {
+    this.aStatus = status;
+  }
+
+  @Override
+  public String toString() {
+    return aUuid.toString();
+  }
 
 }

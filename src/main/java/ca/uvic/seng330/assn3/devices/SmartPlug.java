@@ -1,52 +1,33 @@
 package ca.uvic.seng330.assn3.devices;
-import java.util.UUID;
+
+import ca.uvic.seng330.assn3.HubRegistrationException;
 import ca.uvic.seng330.assn3.Mediator;
 
-public class SmartPlug implements Device{
-	
-	//private boolean power;
-	private boolean toggle = false; //default off
-	protected Mediator med;
-	private boolean power = false;
-	
-	protected Status status = Status.NORMAL;
-	private UUID uuid;
-	
-	
-	public SmartPlug() { 
-		this.uuid = UUID.randomUUID();
-	}
-	
-	public SmartPlug(Mediator m) {
-		this.med = m;
-		this.uuid = UUID.randomUUID();
-	}
-	
-	
-	public void toggle() {
-		toggle = !toggle;
-	}
+public class SmartPlug extends Device implements SwitchableDevice {
 
-	@Override
-	public UUID getIdentifier() {
-		return this.uuid;
-		
-	}
+  private final Mediator aMed;
+  private boolean isOn = false;
 
-	@Override
-	public Status getStatus() {
-		return this.status;
-	}
+  public SmartPlug(Mediator med) {
+    super();
+    aMed = med;
+    isOn = false;
+    try {
+      aMed.register(this);
+    } catch (HubRegistrationException e) {
+      e.printStackTrace();
+    }
+  }
 
-	@Override
-	public boolean getPower() {
-		return this.power;
-	}
+  @Override
+  public void toggle() {
+    isOn = !isOn;
+    String status = "plug is now ";
+    aMed.alert(this, status + isOn);
+  }
 
-	@Override
-	public void togglePower() {
-		this.power = !this.power;
-		
-	}
-	
+  @Override
+  public String toString() {
+    return "Smartplug id " + super.getIdentifier().toString();
+  }
 }

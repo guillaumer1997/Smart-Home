@@ -1,17 +1,7 @@
+
 package ca.uvic.seng330.assn3.devices;
 
-
-
-
 public enum Status {
+  NORMAL, ERROR, OFF, NOT_AVAILABLE
 
-	ERROR, SAFE, NORMAL;
-		
-	@Override
-	public String toString() {
-		
-		return this.name();
-		
-	}
-	
 }

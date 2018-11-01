@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ca.uvic.seng330.assn3.DeviceTests" tests="2" skipped="0" failures="0" errors="0" timestamp="2018-10-31T23:49:33" hostname="w134-87-134-048.wireless.uvic.ca" time="0.002">
+  <properties/>
+  <testcase name="testDeviceCreation" classname="ca.uvic.seng330.assn3.DeviceTests" time="0.002"/>
+  <testcase name="testToggle" classname="ca.uvic.seng330.assn3.DeviceTests" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

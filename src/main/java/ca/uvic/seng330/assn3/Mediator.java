@@ -1,22 +1,18 @@
 package ca.uvic.seng330.assn3;
 
-import java.util.HashMap;
-import java.util.UUID;
-import org.json.JSONObject;
 import ca.uvic.seng330.assn3.devices.Device;
+import ca.uvic.seng330.assn3.users.*;
 
+public interface Mediator {
 
+  public void unregister(Device device) throws HubRegistrationException;
 
-public interface Mediator  {
+  public void unregister(UserInterface User) throws HubRegistrationException;
 
-	final UUID uuid = UUID.randomUUID();
-	
-	
-	void register(Device d) throws HubRegistrationException;		
-	void unregister(Device d) throws HubRegistrationException;
-	void startup();
-	void shutdown();
-	void log(String message, String date);
-	public void alert(String message, Device d);
-	public HashMap<UUID, Device> getDevices();
+  //not in spec, do not test
+  public void register(Device pDevice) throws HubRegistrationException;
+
+  public void register(UserInterface User) throws HubRegistrationException;
+
+  public void alert(Device pDevice, String pMessage);
 }

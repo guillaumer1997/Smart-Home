@@ -1,96 +1,47 @@
 package ca.uvic.seng330.assn3.devices;
 
-
-import java.util.UUID;
-import ca.uvic.seng330.assn3.Client;
+import ca.uvic.seng330.assn3.HubRegistrationException;
 import ca.uvic.seng330.assn3.Mediator;
+import ca.uvic.seng330.assn3.devices.Status;
 
-public class Camera implements Device {
-	 
-	private boolean power = false;
-	private boolean isRecording;
-	private int diskSize;
-	private Client c;
-	private Mediator med;
-	private UUID uuid;
-	private Status status = Status.NORMAL;
-	
-	//protected Status status = Status.NORMAL;
-	
-	public Camera() {
-		
-		this.uuid = UUID.randomUUID();
-	}
-	
-	public Camera(Mediator m) {
-		this.med = m;
-		this.uuid = UUID.randomUUID();
-	}
-	public Camera(int ds, Mediator m) {
-		this.med = m;
-		this.diskSize = ds;
-		this.uuid = UUID.randomUUID();
-		
-	}
-	public void setStatus(Status s) {
-		this.status = s;
-		
-	}
-	public int getDiskSize() {
-		return this.diskSize;
-	}
-	
-	public void setDiskSize(int s) {
-		this.diskSize = s;
-	}
-	
-	
-	
-	
-	public void record() throws CameraFullException{
-		if (diskSize >= 100) {
-			System.out.println("inside record(). ");
-			this.med.alert("Camera is full", this);
-			throw new CameraFullException("Full");
-		}
-		isRecording = !isRecording;
-			
-	}
-	
-	public boolean recording() {	
-		
-		return this.isRecording; 
-	}
+public class Camera extends Device {
 
-	@Override
-	public UUID getIdentifier() {
-		return this.uuid;
-	}
+  private boolean isRecording;
+  private int diskSize;
 
-	public Client getClient() {
-		return this.c;
-	}
+  private final Mediator aMed;
 
-	@Override
-	public Status getStatus() {
-		return this.status ;
-	}
+  public Camera(Mediator med) {
+    super();
+    aMed = med;
+    diskSize = 999;
+    try {
+      aMed.register(this);
+    } catch (HubRegistrationException e) {
+      // in future, log this
+    }
+  }
 
-	@Override
-	public boolean getPower() {
-		return this.power;
-	}
+  public String startup() {
+    isRecording = false;
+    return "started";
+  }
 
-	@Override
-	public void togglePower() {
-		this.power = !this.power;
-		
-	}
-	
-	
-	
-	
-	
+  public void record() throws CameraFullException {
+    isRecording = true;
+    aMed.alert(this, "Started recording");
+    if(Math.random()*1000 > diskSize) {
+      throw new CameraFullException("Camera Full");
+    }
+  }
 
+  @Override
+  public Status getStatus() {
+    return Status.ERROR;
+  }
 
+  @Override
+  public String toString() {
+    return "Camera id " + super.getIdentifier().toString();
+  }
 }

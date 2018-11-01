@@ -1,59 +1,37 @@
 package ca.uvic.seng330.assn3.devices;
-import java.util.UUID;
+
+import ca.uvic.seng330.assn3.HubRegistrationException;
 import ca.uvic.seng330.assn3.Mediator;
 
-public class Lightbulb implements Device{
+public class Lightbulb extends Device implements SwitchableDevice {
 
-	private boolean toggle = false;
-	protected Mediator med;
-	private boolean power = false;
-	
-	protected Status status = Status.NORMAL;
-	private UUID uuid;
-	
-	public Lightbulb() { 
-		this.uuid = UUID.randomUUID();
-	}
-	
-	public Lightbulb(Mediator m) {
-		this.med = m;
-		this.uuid = UUID.randomUUID();
-	}
-	
-	public void toggle() { //simple keep track of the 
-		toggle = !toggle;
-		if (toggle) {
-			this.med.alert("the Lightbulb has been switched off", this);
-		}
-		else {
-			this.med.alert("the Lightbulb has been switched on", this);
-		}
-	}
-	
-	public boolean getCondition() {
-		
-		return toggle;
-	}
+  private boolean isOn = false;
+  private final Mediator aMed;
 
-	@Override
-	public UUID getIdentifier() {
-		return this.uuid;
-	}
+  public Lightbulb(Mediator pMed) {
+    super();
+    aMed = pMed;
+    isOn = false;
+    try {
+      aMed.register(this);
+    } catch (HubRegistrationException e) {
+      e.printStackTrace();
+    }
+  }
 
-	@Override
-	public Status getStatus() {
-		return this.status;
-	}
+  @Override
+  public void toggle() {
+    isOn = !isOn;
+    String status = "lightbulb is now ";
+    aMed.alert(this, status + isOn);
+  }
 
-	@Override
-	public boolean getPower() {
-		return this.power;
-	}
+  public boolean getCondition() {
+    return isOn;
+  }
 
-	@Override
-	public void togglePower() {
-		this.power = !this.power;
-		
-	}
-	
+  @Override
+  public String toString() {
+    return "Lightbulb id " + super.getIdentifier().toString();
+  }
 }

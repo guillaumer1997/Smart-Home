@@ -1,94 +1,98 @@
 package ca.uvic.seng330.assn3;
 
-
-import org.json.JSONException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import ca.uvic.seng330.assn3.devices.Device;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
-public class Hub implements Mediator {
-
-	private HashMap<UUID, Device> devices;           //a client has a hub and a hub has devices
-	private final Logger logger = LoggerFactory.getLogger(Hub.class);
-	private HashMap<String, String> logs = new HashMap<String, String>();
-	private Client c;
-	
-	
-	public Hub() {
-		devices = new HashMap<UUID, Device>();
-		
-		
-	}
-	
-	
-	public void startup() {
-		logger.info("System Booting. @{} ", java.time.Clock.systemUTC().instant().toString());
-		
-		
-	}
-	
-	public void shutdown() {
-		logger.info("System going Offline. @{} ", java.time.Clock.systemUTC().instant().toString());
-	}
-	
-	
-	
-	public void register(Device d) throws HubRegistrationException{
-		if (devices.put(d.getIdentifier(),d) == null) {
-			
-			logger.error("device {} was not able to be found for registration", d.getIdentifier());
-			log("device" + d + "was not able to be found for registration", java.time.Clock.systemUTC().instant().toString());
-			throw new HubRegistrationException("invalid registration of device + d.getIdentifier() + ");
-		}
-		logger.info("device {} was registered to {}", d.getIdentifier(), this.getClass().toString());
-		log(("device" + d + "was unregistered from" + this), java.time.Clock.systemUTC().instant().toString());
-	}
-	
-	
-	
-	
-	public void log(String message, String date) {
-		
-		logs.put(message, date); //simply log a message with the date
-								 //these can be accessed by the clients
-		
-	}
-	
-	public void alert(String message, Device d) { //if there is an alert send a json message to the Client and add to the clients log
-	    try {
-		JSONMessaging jMsg = new JSONMessaging(d,message);
-	    } catch(JSONException e) {}
-		logs.put(message, java.time.Clock.systemUTC().instant().toString());
-		
-		
-		
-	}
-	
-	public void unregister(Device d) throws HubRegistrationException {
-		if(devices.remove(d.getIdentifier()) == null){
-			logger.error("device {} was not able to be found", d.getIdentifier());
-			log(("device" + d.getIdentifier() + " was not able to be found during unregistration"), java.time.Clock.systemUTC().instant().toString());
-			throw new HubRegistrationException("invalid removal");
-		}
-		
-		logger.info("device {} was removed from {}", d, this);
-		log(("device" + d + "was unregistered from" + this), java.time.Clock.systemUTC().instant().toString());
-	
-	}
-
-	@Override
-	public HashMap<UUID, Device> getDevices() {
-		
-		return devices;
-	}
-
-		
-	
+import ca.uvic.seng330.assn3.devices.Device;
+import ca.uvic.seng330.assn3.users.*;
+import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
+public class Hub extends Device implements Mediator {
+
+  private HashMap<UUID, Device> aDevices = new HashMap<UUID, Device>();
+  private HashMap<UUID, UserInterface> aUsers = new HashMap<UUID, UserInterface>();
+  private Logger logger = LoggerFactory.getLogger(Hub.class);
+
+  public void startup() {
+    // some logic about sending init messages or somethng.
+  }
+
+  public void shutdown() {}
+
+  @Override
+  public void register(Device pDevice) throws HubRegistrationException {
+    if (!aDevices.containsKey(pDevice.getIdentifier())) {
+      aDevices.put(pDevice.getIdentifier(), pDevice);
+    } else {
+      throw new HubRegistrationException(pDevice + " was already registered");
+    }
+  }
+
+  @Override
+  public void register(UserInterface User) throws HubRegistrationException {
+    if (!aUsers.containsKey(User.getIdentifier())) {
+      aUsers.put(User.getIdentifier(), User);
+    } else {
+      throw new HubRegistrationException(User + " was already registered");
+    }
+  }
+
+  @Override
+  public void unregister(Device device) throws HubRegistrationException {
+    if (!aDevices.containsKey(device.getIdentifier())) {
+      log("Unknown Device unregister");
+      throw new HubRegistrationException("Device does not exists!");
+    }
+    aDevices.remove(device.getIdentifier());
+    log("Device removed " + device);
+  }
+
+  @Override
+  public void unregister(UserInterface client) throws HubRegistrationException {
+    if (!aUsers.containsKey(client.getIdentifier())) {
+      throw new HubRegistrationException("Client does not exists!");
+    }
+    aUsers.remove(client.getIdentifier());
+  }
+
+  /**
+   * Logging. Use SLF4J to write all message traffic to the log file.
+   *
+   * @param logMsg
+   */
+  public void log(String logMsg) {
+    logger.info(logMsg);
+  }
+
+  /**
+   * Alerts are events that happen at the Device level. They send the alert to the hUb, which
+   * redistributes to the clients
+   *
+   * @param pMessage
+   */
+  @Override
+  public void alert(Device pDevice, String pMessage) {
+
+    // initialize the map
+    JSONObject jsonMessage = new JSONMessaging(pDevice, pMessage).invoke();
+
+    // ordinarily, we would have logic for which clients to notify
+    notifyClients(jsonMessage);
+    log("ALERT msg: " + pMessage + " - from Device " + pDevice.toString());
+  }
+
+  private void notifyClients(JSONObject pMsg) {
+    for (UserInterface c : aUsers.values()) {
+      c.notify(pMsg);
+      log("Notified: " + c.toString());
+    }
+  }
+
+  public Map<UUID, Device> getDevices() {
+    return new HashMap<UUID, Device>(aDevices);
+  }
 }

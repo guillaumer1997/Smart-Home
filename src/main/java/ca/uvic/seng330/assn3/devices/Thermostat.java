@@ -1,72 +1,45 @@
 package ca.uvic.seng330.assn3.devices;
-import java.util.UUID;
-import ca.uvic.seng330.assn3.Client;
+
+import ca.uvic.seng330.assn3.HubRegistrationException;
 import ca.uvic.seng330.assn3.Mediator;
-import ca.uvic.seng330.assn3.devices.Temperature.TemperatureOutofBoundsException;
-import ca.uvic.seng330.assn3.devices.Temperature.Unit;
+import ca.uvic.seng330.assn3.devices.Status;
 
-public class Thermostat implements Device{
+public class Thermostat extends Device {
+  private final Mediator aMed;
+  private Status status = Status.NORMAL;
+  private Temperature setPoint;
 
-	
-	protected Mediator med;
-	
-	protected Status status = Status.NORMAL;
-	private Temperature temp;
-	
-	private boolean toggle = false;
-	private boolean power = false;
-	private Client c;
-	private UUID uuid;
-	
-	
-	
-	public Thermostat() {
-		
-		this.uuid = UUID.randomUUID();
-		
-	}
-	
-	public Thermostat(Mediator m) {
-		
-		this.uuid = UUID.randomUUID();
-	}
-	
-	
-	public void setTemp(Temperature aTemp)  {	
-		
-		
-	}
-	
-	public void toggle() {
-		toggle = !toggle;
-		if (toggle) {
-			this.med.alert("the Thermostat has been switched off", this);
-		}
-		else {
-			this.med.alert("the Thermostat has been switched on", this);
-		}
-	}
+  {
+    try {
+      setPoint = new Temperature(72, Temperature.Unit.FAHRENHEIT);
+    } catch (Temperature.TemperatureOutofBoundsException e) {
+      e.printStackTrace();
+    }
+  }
 
-	@Override
-	public UUID getIdentifier() {
-		return this.uuid;
-	}
+  public Thermostat(Mediator mediator) {
+    super();
+    this.aMed = mediator;
+    try {
+      aMed.register(this);
+    } catch (HubRegistrationException e) {
+      e.printStackTrace();
+    }
+  }
 
-	@Override
-	public Status getStatus() {
-		return this.status;
-	}
+  @Override
+  public Status getStatus() {
+    return status;
+  }
 
-	@Override
-	public boolean getPower() {
-		return this.power;
-	}
+  @Override
+  public String toString() {
+    return "Thermostat id " + super.getIdentifier().toString();
+  }
 
-	@Override
-	public void togglePower() {
-		this.power = !this.power;
-		
-	}
-	
-	
+  public void setTemp(Temperature t) {
+    setPoint = t;
+    aMed.alert(this, "Setting temp to " + t.getTemperature());
+    status = Status.NORMAL;
+  }
 }

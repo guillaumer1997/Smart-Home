@@ -8,5 +8,6 @@
 	<classpathentry exported="true" kind="lib" path="/Users/guillaumerousseau/Downloads/java-json.jar"/>
 	<classpathentry kind="lib" path="/Users/guillaumerousseau/Downloads/slf4j-1.7.25/slf4j-simple-1.7.25.jar"/>
 	<classpathentry exported="true" kind="lib" path="/Users/guillaumerousseau/Downloads/slf4j-1.7.25/slf4j-api-1.7.25.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

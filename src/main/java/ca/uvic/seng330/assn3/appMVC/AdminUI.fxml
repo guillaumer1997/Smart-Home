@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane minHeight="400.0" minWidth="600.0" prefHeight="763.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <MenuBar prefHeight="29.0" prefWidth="600.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="Admin Interface" />
+        </menus>
+      </MenuBar>
+      <TabPane layoutY="77.0" prefHeight="686.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="Logs">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="167.0" prefWidth="268.0">
+                     <children>
+                        <ListView fx:id="Logs" layoutX="7.0" layoutY="6.0" prefHeight="337.0" prefWidth="590.0" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab text="Devices">
+            <content>
+              <AnchorPane maxHeight="900.0" maxWidth="606.0" minHeight="156.0" minWidth="600.0" prefHeight="691.0" prefWidth="600.0">
+                     <children>
+                        <ListView fx:id="LightList" layoutX="7.0" layoutY="25.0" prefHeight="167.0" prefWidth="442.0" />
+                        <Text layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="LightBulbs" />
+                        <ListView fx:id="CamList" layoutX="7.0" layoutY="212.0" prefHeight="137.0" prefWidth="444.0" />
+                        <Text layoutX="5.0" layoutY="208.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cameras" />
+                        <ListView fx:id="SmartList" layoutX="8.0" layoutY="372.0" prefHeight="135.0" prefWidth="448.0" />
+                        <Text layoutX="8.0" layoutY="364.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SmartPlugs" />
+                        <ListView fx:id="ThermList" layoutX="5.0" layoutY="531.0" prefHeight="143.0" prefWidth="452.0" />
+                        <Text layoutY="298.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+                        <Text layoutX="8.0" layoutY="527.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Thermostat" />
+                        <Button layoutX="449.0" layoutY="74.0" mnemonicParsing="false" onMouseClicked="#unregLightbulb" prefHeight="59.0" prefWidth="147.0" text="Unregister LightBulb" />
+                        <Button layoutX="448.0" layoutY="253.0" mnemonicParsing="false" onMouseClicked="#unregCamera" prefHeight="56.0" prefWidth="157.0" text="Unregister Camera" />
+                        <Button layoutX="450.0" layoutY="420.0" mnemonicParsing="false" onMouseClicked="#unregSmartPlug" prefHeight="27.0" prefWidth="154.0" text="Unregister SmartPlug" />
+                        <Button layoutX="448.0" layoutY="565.0" mnemonicParsing="false" onMouseClicked="#unregThermostat" prefHeight="27.0" prefWidth="159.0" text="Unregister Thermostat" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+            <Tab text="User">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <ListView fx:id="Users" layoutX="8.0" layoutY="7.0" prefHeight="337.0" prefWidth="587.0" />
+                        <TextField fx:id="username" layoutX="41.0" layoutY="371.0" />
+                        <TextField fx:id="password" layoutX="291.0" layoutY="371.0" />
+                        <Text layoutX="55.0" layoutY="426.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" />
+                        <Text layoutX="310.0" layoutY="435.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password" />
+                        <Button layoutX="191.0" layoutY="461.0" mnemonicParsing="false" onMouseClicked="#createUser" text="Create new user" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+      <Button fx:id="Login" layoutX="412.0" layoutY="29.0" mnemonicParsing="false" onMouseClicked="#backToLogin" prefHeight="27.0" prefWidth="145.0" text="Back to login page" />
+   </children>
+</AnchorPane>

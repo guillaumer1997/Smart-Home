@@ -1,11 +1,12 @@
 package ca.uvic.seng330.assn3.devices;
 
+import ca.uvic.seng330.assn3.Hub;
 import ca.uvic.seng330.assn3.HubRegistrationException;
 import ca.uvic.seng330.assn3.Mediator;
 import ca.uvic.seng330.assn3.devices.Status;
 
 public class Thermostat extends Device {
-  private final Mediator aMed;
+  private final Hub aMed;
   private Status status = Status.NORMAL;
   private Temperature setPoint;
 
@@ -17,7 +18,7 @@ public class Thermostat extends Device {
     }
   }
 
-  public Thermostat(Mediator mediator) {
+  public Thermostat(Hub mediator) {
     super();
     this.aMed = mediator;
     try {

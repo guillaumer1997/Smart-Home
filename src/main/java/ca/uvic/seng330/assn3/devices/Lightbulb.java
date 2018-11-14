@@ -1,14 +1,15 @@
 package ca.uvic.seng330.assn3.devices;
 
+import ca.uvic.seng330.assn3.Hub;
 import ca.uvic.seng330.assn3.HubRegistrationException;
 import ca.uvic.seng330.assn3.Mediator;
 
 public class Lightbulb extends Device implements SwitchableDevice {
 
   private boolean isOn = false;
-  private final Mediator aMed;
+  private final Hub aMed;
 
-  public Lightbulb(Mediator pMed) {
+  public Lightbulb(Hub pMed) {
     super();
     aMed = pMed;
     isOn = false;

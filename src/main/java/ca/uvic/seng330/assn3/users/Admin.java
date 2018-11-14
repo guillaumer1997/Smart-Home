@@ -13,7 +13,7 @@ import ca.uvic.seng330.assn3.Mediator;
 import ca.uvic.seng330.assn3.devices.Device;
 
 public class Admin implements UserInterface {
-  private Mediator userHub;
+  private Hub userHub;
   private final UserStatus status = UserStatus.ADMIN;
   private final String userName;
   private final String password;
@@ -21,9 +21,9 @@ public class Admin implements UserInterface {
   private Logger logger = LoggerFactory.getLogger(Hub.class);
   private JSONObject aJsonObj;
   
-  public Admin(Mediator userHub, String userName, String password) {
+  public Admin(Hub model, String userName, String password) {
     try {
-      userHub.register(this);
+      model.register(this);
     } catch (HubRegistrationException e) {
       e.printStackTrace();
     }
@@ -50,9 +50,17 @@ public class Admin implements UserInterface {
     return status;
   }
   
+  public String getName() {
+    return userName;
+  }
+  
   private void display() throws JSONException {
     System.out.println("WebClient is displaying content from : " + aJsonObj.getString("node_id"));
     //TODO  should be on web page
+  }
+  public String toString() {
+  
+  return status.toString()+": "+userName;
   }
 
 

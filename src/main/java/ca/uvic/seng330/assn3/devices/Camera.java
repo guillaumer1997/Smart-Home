@@ -1,5 +1,6 @@
 package ca.uvic.seng330.assn3.devices;
 
+import ca.uvic.seng330.assn3.Hub;
 import ca.uvic.seng330.assn3.HubRegistrationException;
 import ca.uvic.seng330.assn3.Mediator;
 import ca.uvic.seng330.assn3.devices.Status;
@@ -9,9 +10,9 @@ public class Camera extends Device {
   private boolean isRecording;
   private int diskSize;
 
-  private final Mediator aMed;
+  private final Hub aMed;
 
-  public Camera(Mediator med) {
+  public Camera(Hub med) {
     super();
     aMed = med;
     diskSize = 999;

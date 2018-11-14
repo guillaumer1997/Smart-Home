@@ -15,5 +15,6 @@ public interface UserInterface {
   public void notify(JSONObject json) ;
 
   public String toString();
+  public String getName();
   
 }

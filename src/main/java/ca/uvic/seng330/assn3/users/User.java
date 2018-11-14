@@ -13,7 +13,7 @@ import ca.uvic.seng330.assn3.devices.Device;
 
 
 public class User implements UserInterface {
-  private Mediator userHub;
+  private Hub userHub;
   private final UserStatus status = UserStatus.USER;
   private final String password;
   private final String userName;
@@ -21,7 +21,7 @@ public class User implements UserInterface {
   private Logger logger = LoggerFactory.getLogger(Hub.class);
   private JSONObject aJsonObj;
 
-  public User(Mediator userHub, String password, String userName) {
+  public User(Hub userHub, String password, String userName) {
     this.userHub = userHub;
     try {
       userHub.register(this);
@@ -52,9 +52,18 @@ public class User implements UserInterface {
     return status;
   }
   
+  public String getName() {
+    return userName;
+  }
+  
   private void display() throws JSONException {
     System.out.println("WebClient is displaying content from : " + aJsonObj.getString("node_id"));
     //TODO  should be on web page
+  }
+  
+  public String toString() {
+    return status.toString()+": "+userName;
+    
   }
   
   

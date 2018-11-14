@@ -1,14 +1,15 @@
 package ca.uvic.seng330.assn3.devices;
 
+import ca.uvic.seng330.assn3.Hub;
 import ca.uvic.seng330.assn3.HubRegistrationException;
 import ca.uvic.seng330.assn3.Mediator;
 
 public class SmartPlug extends Device implements SwitchableDevice {
 
-  private final Mediator aMed;
+  private final Hub aMed;
   private boolean isOn = false;
 
-  public SmartPlug(Mediator med) {
+  public SmartPlug(Hub med) {
     super();
     aMed = med;
     isOn = false;

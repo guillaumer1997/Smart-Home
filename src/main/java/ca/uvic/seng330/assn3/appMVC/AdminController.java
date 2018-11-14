@@ -1,0 +1,139 @@
+package ca.uvic.seng330.assn3.appMVC;
+
+import java.io.IOException;
+import java.net.URL;
+import java.util.Observable;
+import java.util.ResourceBundle;
+import javafx.application.Application;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.stage.Stage;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
+import ca.uvic.seng330.assn3.Hub;
+import ca.uvic.seng330.assn3.HubRegistrationException;
+import ca.uvic.seng330.assn3.devices.Camera;
+import ca.uvic.seng330.assn3.devices.Device;
+import ca.uvic.seng330.assn3.devices.Lightbulb;
+import ca.uvic.seng330.assn3.devices.SmartPlug;
+import ca.uvic.seng330.assn3.devices.Thermostat;
+import ca.uvic.seng330.assn3.users.*;
+import java.util.UUID;
+
+public class AdminController {
+  @FXML
+  private ListView<UserInterface> Users;
+  @FXML
+  private ListView<Camera> CamList;
+  @FXML
+  private ListView<Thermostat> ThermList;
+  @FXML
+  private ListView<SmartPlug> SmartList;
+  @FXML
+  private ListView<Lightbulb> LightList;
+  @FXML
+  private ListView<?> Logs;
+  @FXML
+  private TextField username;
+  @FXML
+  private TextField password;
+  
+  ObservableList<Camera> Cams;
+  ObservableList<Thermostat> Therms;
+  ObservableList<SmartPlug> Smarts;
+  ObservableList<Lightbulb>Lights;
+
+  
+  
+  private Hub model;
+  
+  public AdminController(Hub model) {
+    this.model=model;
+    Cams = model.getCameras();
+    Therms = model.getThermostats();
+    Smarts = model.getSmartPlugs();
+    Lights = model.getLightBulbs();
+  }
+ 
+  
+  
+  public void initialize() {
+    
+    
+    CamList.setItems(Cams);
+    ThermList.setItems(Therms);
+    SmartList.setItems(Smarts);
+    LightList.setItems(Lights);
+    ObservableList<UserInterface> User = model.getUsers();
+    Users.setItems(User);
+    
+    
+    
+    
+  }
+  
+  @FXML
+  public void unregCamera(MouseEvent event) throws HubRegistrationException {
+    if(CamList.getSelectionModel().getSelectedItem()!=null) {
+      model.unregister(CamList.getSelectionModel().getSelectedItem());
+      CamList.getItems().remove(CamList.getSelectionModel().getSelectedIndex());
+    }
+  }
+  
+  @FXML
+  public void unregThermostat(MouseEvent event) throws HubRegistrationException{
+    if(ThermList.getSelectionModel().getSelectedItem()!=null) {
+      model.unregister(ThermList.getSelectionModel().getSelectedItem());
+      ThermList.getItems().remove(ThermList.getSelectionModel().getSelectedIndex());
+    }
+  }
+  @FXML
+  public void unregSmartPlug(MouseEvent event) throws HubRegistrationException{
+    if(SmartList.getSelectionModel().getSelectedItem()!=null) {
+      model.unregister(SmartList.getSelectionModel().getSelectedItem());
+      SmartList.getItems().remove(SmartList.getSelectionModel().getSelectedIndex());
+    }
+  }
+  @FXML
+  public void unregLightbulb(MouseEvent event) throws HubRegistrationException{
+    if(LightList.getSelectionModel().getSelectedItem()!=null) {
+      model.unregister(LightList.getSelectionModel().getSelectedItem());
+      LightList.getItems().remove(LightList.getSelectionModel().getSelectedIndex());
+    }
+  }
+  
+  @FXML
+  public void createUser(MouseEvent event) {
+    String pWord = password.getText();
+    String uName = username.getText();
+    
+    UserInterface newUser = new User(model, pWord, uName);
+    
+  }
+  
+  @FXML
+  public void backToLogin(MouseEvent event) throws IOException {
+    Parent root = null;
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginUI.fxml"));
+    loader.setController(new LoginController(model));
+    root = loader.load();
+    Scene scene = new Scene(root);
+    Stage stageTheEventSourceNodeBelongs = (Stage) ((Node)event.getSource()).getScene().getWindow();
+    stageTheEventSourceNodeBelongs.setScene(scene);
+    stageTheEventSourceNodeBelongs.show();
+  }
+  
+  
+  
+
+}

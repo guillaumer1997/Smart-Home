@@ -43,20 +43,9 @@ public class Hub extends Device {
 
   public void shutdown() {}
 
-  /*
-  @Override
-  public void register(Device pDevice) throws HubRegistrationException {
-    if (!aDevices.containsKey(pDevice.getIdentifier())) {
-      aDevices.put(pDevice.getIdentifier(), pDevice);
-      
-    } else {
-      throw new HubRegistrationException(pDevice + " was already registered");
-    }
-  }
-  */
   
   public void register(Thermostat t)throws HubRegistrationException{
-    if (!aDevices.containsKey(t.getIdentifier())) {
+    if (!Thermostats.contains(t)) {
       Thermostats.add(t);
       Devices.add(t);
       
@@ -67,7 +56,7 @@ public class Hub extends Device {
   }
   
   public void register(Camera c)throws HubRegistrationException{
-    if (!aDevices.containsKey(c.getIdentifier())) {
+    if (!Cameras.contains(c)) {
       Cameras.add(c);
       Devices.add(c);
       
@@ -78,7 +67,7 @@ public class Hub extends Device {
   }
   
   public void register(SmartPlug s)throws HubRegistrationException{
-    if (!aDevices.containsKey(s.getIdentifier())) {
+    if (!SmartPlugs.contains(s)) {
       SmartPlugs.add(s);
       Devices.add(s);
       
@@ -88,7 +77,7 @@ public class Hub extends Device {
     
   }
   public void register(Lightbulb l)throws HubRegistrationException{
-    if (!aDevices.containsKey(l.getIdentifier())) {
+    if (!Lightbulbs.contains(l)) {
       Lightbulbs.add(l);
       Devices.add(l);
       
@@ -99,8 +88,17 @@ public class Hub extends Device {
   }
 
   
+  public void unregister(UserInterface User) throws HubRegistrationException {
+    if (!Users.contains(User)) {
+      log("Unknown User unregister");
+      throw new HubRegistrationException("User does not exists!");
+    } 
+    Users.remove(User);
+    log("User removed " + User);
+  }
+  
   public void register(UserInterface User) throws HubRegistrationException {
-    if (!aUsers.containsKey(User.getIdentifier())) {
+    if (!Users.contains(User)) {
       Users.add(User);
       System.out.println("new user created");
     } else {
@@ -109,23 +107,53 @@ public class Hub extends Device {
   }
 
   
-  public void unregister(Device device) throws HubRegistrationException {
-    if (!Devices.contains(device)) {
+  public void unregister(Lightbulb l) throws HubRegistrationException{
+    if(!Lightbulbs.contains(l)) {
       log("Unknown Device unregister");
       throw new HubRegistrationException("Device does not exists!");
+      
     }
-    Devices.remove(device);
-    log("Device removed " + device);
+    Lightbulbs.remove(l);
+    Devices.remove(l);
+    log("Device removed " + l);
+    
   }
-
-  /*
-  public void unregister(UserInterface client) throws HubRegistrationException {
-    if (!aUsers.containsKey(client.getIdentifier())) {
-      throw new HubRegistrationException("Client does not exists!");
+  
+  public void unregister(Camera c) throws HubRegistrationException{
+    if(!Cameras.contains(c)) {
+      log("Unknown Device unregister");
+      throw new HubRegistrationException("Device does not exists!");
+      
     }
-    aUsers.remove(client.getIdentifier());
+    Cameras.remove(c);
+    Devices.remove(c);
+    log("Device removed " + c);
+    
   }
-  */
+  
+  public void unregister(SmartPlug s) throws HubRegistrationException{
+    if(!SmartPlugs.contains(s)) {
+      log("Unknown Device unregister");
+      throw new HubRegistrationException("Device does not exists!");
+      
+    }
+    SmartPlugs.remove(s);
+    Devices.remove(s);
+    log("Device removed " + s);
+    
+  }
+  public void unregister(Thermostat t) throws HubRegistrationException{
+    if(!Thermostats.contains(t)) {
+      log("Unknown Device unregister");
+      throw new HubRegistrationException("Device does not exists!");
+      
+    }
+    Thermostats.remove(t);
+    Devices.remove(t);
+    log("Device removed " + t);
+    
+  }
+  
 
   /**
    * Logging. Use SLF4J to write all message traffic to the log file.

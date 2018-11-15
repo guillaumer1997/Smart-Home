@@ -81,15 +81,7 @@ public class MVCTest {
 		  assert(false);  
 	  }
 	  
-  }
-  
-  
-  
-  
-  
-  
-  
-  
+  } 
   
   
   
@@ -167,6 +159,12 @@ public class MVCTest {
 		    
   	}	
   
+  
+  @Test 
+  public void registerUser() {
+	  
+	  
+  }
   
   
   

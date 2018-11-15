@@ -24,3 +24,7 @@ hs_err_pid*
 /.gradle/
 /.gradle/
 /bin/
+<<<<<<< HEAD
+/build/
+=======
+>>>>>>> branch 'master' of https://github.com/SENG330/assn3-team-guillaume-and-scott

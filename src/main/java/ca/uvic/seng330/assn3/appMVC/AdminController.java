@@ -86,7 +86,6 @@ public class AdminController {
   public void unregCamera(MouseEvent event) throws HubRegistrationException {
     if(CamList.getSelectionModel().getSelectedItem()!=null) {
       model.unregister(CamList.getSelectionModel().getSelectedItem());
-      CamList.getItems().remove(CamList.getSelectionModel().getSelectedIndex());
     }
   }
   
@@ -94,21 +93,18 @@ public class AdminController {
   public void unregThermostat(MouseEvent event) throws HubRegistrationException{
     if(ThermList.getSelectionModel().getSelectedItem()!=null) {
       model.unregister(ThermList.getSelectionModel().getSelectedItem());
-      ThermList.getItems().remove(ThermList.getSelectionModel().getSelectedIndex());
     }
   }
   @FXML
   public void unregSmartPlug(MouseEvent event) throws HubRegistrationException{
     if(SmartList.getSelectionModel().getSelectedItem()!=null) {
       model.unregister(SmartList.getSelectionModel().getSelectedItem());
-      SmartList.getItems().remove(SmartList.getSelectionModel().getSelectedIndex());
     }
   }
   @FXML
   public void unregLightbulb(MouseEvent event) throws HubRegistrationException{
     if(LightList.getSelectionModel().getSelectedItem()!=null) {
       model.unregister(LightList.getSelectionModel().getSelectedItem());
-      LightList.getItems().remove(LightList.getSelectionModel().getSelectedIndex());
     }
   }
   
@@ -117,7 +113,7 @@ public class AdminController {
     String pWord = password.getText();
     String uName = username.getText();
     
-    UserInterface newUser = new User(model, pWord, uName);
+    UserInterface newUser = new User(model, uName, pWord);
     
   }
   

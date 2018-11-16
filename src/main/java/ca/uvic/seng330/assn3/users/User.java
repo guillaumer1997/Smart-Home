@@ -21,7 +21,7 @@ public class User implements UserInterface {
   private Logger logger = LoggerFactory.getLogger(Hub.class);
   private JSONObject aJsonObj;
 
-  public User(Hub userHub, String password, String userName) {
+  public User(Hub userHub, String userName, String password) {
     this.userHub = userHub;
     try {
       userHub.register(this);
@@ -50,6 +50,10 @@ public class User implements UserInterface {
   
   public UserStatus getStatus() {
     return status;
+  }
+  
+  public String getPass() {
+    return password;
   }
   
   public String getName() {

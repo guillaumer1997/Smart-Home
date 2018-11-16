@@ -1,13 +1,15 @@
 package ca.uvic.seng330.assn3.devices;
 
 import ca.uvic.seng330.assn3.devices.Status;
-
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import java.util.UUID;
 
 public abstract class Device {
 
   private final UUID aUuid = UUID.randomUUID();
   private Status aStatus; // This can't be NULL!
+
 
   public UUID getIdentifier() {
     return aUuid;
@@ -26,6 +28,10 @@ public abstract class Device {
   @Override
   public String toString() {
     return aUuid.toString();
+  }
+  
+  public StringProperty getNameProper() {
+    return new SimpleStringProperty("Device ID: "+aUuid.toString());
   }
 
 }

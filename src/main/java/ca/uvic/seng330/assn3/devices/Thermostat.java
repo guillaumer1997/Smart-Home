@@ -35,7 +35,7 @@ public class Thermostat extends Device {
 
   @Override
   public String toString() {
-    return "Thermostat id " + super.getIdentifier().toString();
+    return "Thermostat id " + super.getIdentifier().toString()+" Status: "+status.name();
   }
 
   public void setTemp(Temperature t) {

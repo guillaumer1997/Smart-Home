@@ -1,14 +1,16 @@
 package ca.uvic.seng330.assn3;
 
 import org.junit.Test;
-
-import ca.uvic.seng330.assn3.devices.Camera;
+import org.testfx.framework.junit.ApplicationTest;
+import ca.uvic.seng330.assn3.devices.*;
 import ca.uvic.seng330.assn3.devices.Lightbulb;
 import ca.uvic.seng330.assn3.devices.SmartPlug;
 import ca.uvic.seng330.assn3.devices.Thermostat;
-import junit.framework.Assert;
+import javafx.stage.Stage;
+import ca.uvic.seng330.assn3.Hub;
+import org.junit.Assert;;
 
-public class MVCTest {
+public class MVCTest extends ApplicationTest {
   
   @Test
   public void LoginTest() {
@@ -16,21 +18,22 @@ public class MVCTest {
   }
   
   
+  @Override
+  public void start(Stage stage) throws Exception {
+    
+  }
+  
+  
   @Test //tests if a camera can be successfully registered
   public void registerCameraTest() throws HubRegistrationException {
 	  Hub aMed = new Hub();
-	  
 	  Camera cam = new Camera(aMed);
-	  
-	  aMed.register(cam);
-	 
-	  if (aMed.Cameras.contains(cam)) {
+	  if (aMed.getCameras().contains(cam)) {
 		  assert(true);
 	  }
 	  else{
 		  assert(false);  
 	  }
-	  
   }
   @Test //tests if a lightbulb can be succesfully registered
   public void registerLightbulbTest() throws HubRegistrationException {
@@ -38,9 +41,8 @@ public class MVCTest {
 	  
 	  Lightbulb lb = new Lightbulb(aMed);
 	  
-	  aMed.register(lb);
 	 
-	  if (aMed.Lightbulbs.contains(lb)) {
+	  if (aMed.getLightBulbs().contains(lb)) {
 		  assert(true);
 	  }
 	  else{
@@ -55,9 +57,8 @@ public class MVCTest {
 	  
 	  SmartPlug sp = new SmartPlug(aMed);
 	  
-	  aMed.register(sp);
 	 
-	  if (aMed.SmartPlugs.contains(sp)) {
+	  if (aMed.getSmartPlugs().contains(sp)) {
 		  assert(true);
 	  }
 	  else{
@@ -72,9 +73,8 @@ public class MVCTest {
 	  
 	  Thermostat therm = new Thermostat(aMed);
 	  
-	  aMed.register(therm);
 	 
-	  if (aMed.Thermostats.contains(therm)) {
+	  if (aMed.getThermostats().contains(therm)) {
 		  assert(true);
 	  }
 	  else{
@@ -91,11 +91,10 @@ public class MVCTest {
 	  
 	  Camera cam = new Camera(aMed);
 	  
-	  aMed.register(cam);
 	  
 	  aMed.unregister(cam);
 	  
-	  if (aMed.Cameras.contains(cam)) {
+	  if (aMed.getCameras().contains(cam)) {
 		  assert(false);
 	  }
 	  
@@ -111,11 +110,10 @@ public class MVCTest {
 	  
 	  Lightbulb lb = new Lightbulb(aMed);
 	  
-	  aMed.register(lb);
 	  
 	  aMed.unregister(lb);
 	  
-	  if (aMed.Lightbulbs.contains(lb)) {
+	  if (aMed.getLightBulbs().contains(lb)) {
 		  assert(false);
 	  }
 	  
@@ -130,11 +128,10 @@ public class MVCTest {
 	  
 	  SmartPlug sp = new SmartPlug(aMed);
 	  
-	  aMed.register(sp);
 	  
 	  aMed.unregister(sp);
 	  
-	  if (aMed.SmartPlugs.contains(sp)) {
+	  if (aMed.getSmartPlugs().contains(sp)) {
 		  assert(false);
 	  }
 	  else assert(true);  
@@ -147,11 +144,10 @@ public class MVCTest {
 	  
 	  Thermostat therm = new Thermostat(aMed);
 	  
-	  aMed.register(therm);
 	  
 	  aMed.unregister(therm);
 	  
-	  if (aMed.Thermostats.contains(therm)) {
+	  if (aMed.getThermostats().contains(therm)) {
 		  assert(false);
 	  }
 	  else assert(true);  

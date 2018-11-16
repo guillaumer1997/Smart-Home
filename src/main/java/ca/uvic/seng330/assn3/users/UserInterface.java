@@ -16,5 +16,7 @@ public interface UserInterface {
 
   public String toString();
   public String getName();
+  public UserStatus getStatus();
+  public String getPass();
   
 }

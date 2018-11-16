@@ -12,7 +12,17 @@ repositories {
     mavenCentral()
 }
 
-mainClassName = "ca.uvic.seng330.assn3.MVCExample"
+processResources {
+  from('src/main/java') {
+  	include '**/*.fxml'
+  }
+    from('src/main/java') {
+  	include '**/*.fxml'
+  }
+	
+}
+
+mainClassName = "ca.uvic.seng330.assn3.appMVC.MVCMain"
 
 dependencies {
 	compile 'org.json:json:20180813','org.slf4j:slf4j-simple:1.7.25'

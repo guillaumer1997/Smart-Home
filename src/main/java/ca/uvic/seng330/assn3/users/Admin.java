@@ -54,6 +54,10 @@ public class Admin implements UserInterface {
     return userName;
   }
   
+  public String getPass() {
+    return password;
+  }
+  
   private void display() throws JSONException {
     System.out.println("WebClient is displaying content from : " + aJsonObj.getString("node_id"));
     //TODO  should be on web page

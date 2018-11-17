@@ -108,7 +108,7 @@ public class Hub extends Device {
 
   
   public void unregister(Lightbulb l) throws HubRegistrationException{
-    if(!Lightbulbs.contains(l)) {
+    if (!Lightbulbs.contains(l)) {
       log("Unknown Device unregister");
       throw new HubRegistrationException("Device does not exists!");
       
@@ -119,8 +119,8 @@ public class Hub extends Device {
     
   }
   
-  public void unregister(Camera c) throws HubRegistrationException{
-    if(!Cameras.contains(c)) {
+  public void unregister(Camera c) throws HubRegistrationException {
+    if (!Cameras.contains(c)) {
       log("Unknown Device unregister");
       throw new HubRegistrationException("Device does not exists!");
       
@@ -132,7 +132,7 @@ public class Hub extends Device {
   }
   
   public void unregister(SmartPlug s) throws HubRegistrationException{
-    if(!SmartPlugs.contains(s)) {
+    if (!SmartPlugs.contains(s)) {
       log("Unknown Device unregister");
       throw new HubRegistrationException("Device does not exists!");
       
@@ -143,7 +143,7 @@ public class Hub extends Device {
     
   }
   public void unregister(Thermostat t) throws HubRegistrationException{
-    if(!Thermostats.contains(t)) {
+    if (!Thermostats.contains(t)) {
       log("Unknown Device unregister");
       throw new HubRegistrationException("Device does not exists!");
       
@@ -192,24 +192,25 @@ public class Hub extends Device {
     return new HashMap<UUID, Device>(aDevices);
   }
   
-  public ObservableList<Thermostat> getThermostats(){
+  public ObservableList<Thermostat> getThermostats() {
 
     return Thermostats;
   }
   
-  public ObservableList<Lightbulb> getLightBulbs(){
+  public ObservableList<Lightbulb> getLightBulbs() {
     return Lightbulbs;
   }
   
-  public ObservableList<SmartPlug> getSmartPlugs(){
+  public ObservableList<SmartPlug> getSmartPlugs() {
     return SmartPlugs;
   }
   
-  public ObservableList<Camera> getCameras(){
+  public ObservableList<Camera> getCameras() {
 
     return Cameras;
   }
-  public ObservableList<UserInterface>getUsers(){
+    
+  public ObservableList<UserInterface> getUsers() {
     return Users;
   }
 }

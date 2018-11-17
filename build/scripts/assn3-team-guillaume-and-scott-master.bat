@@ -66,7 +66,7 @@ set CMD_LINE_ARGS=%*
 set CLASSPATH=%APP_HOME%\lib\assn3-team-guillaume-and-scott-master-1.0-SNAPSHOT.jar;%APP_HOME%\lib\json-20180813.jar;%APP_HOME%\lib\slf4j-simple-1.7.25.jar;%APP_HOME%\lib\slf4j-api-1.7.25.jar
 
 @rem Execute assn3-team-guillaume-and-scott-master
-"%JAVA_EXE%" %DEFAULT_JVM_OPTS% %JAVA_OPTS% %ASSN3_TEAM_GUILLAUME_AND_SCOTT_MASTER_OPTS%  -classpath "%CLASSPATH%" ca.uvic.seng330.assn3.MVCExample %CMD_LINE_ARGS%
+"%JAVA_EXE%" %DEFAULT_JVM_OPTS% %JAVA_OPTS% %ASSN3_TEAM_GUILLAUME_AND_SCOTT_MASTER_OPTS%  -classpath "%CLASSPATH%" ca.uvic.seng330.assn3.appMVC.MVCMain %CMD_LINE_ARGS%
 
 :end
 @rem End local scope for the variables with windows NT shell

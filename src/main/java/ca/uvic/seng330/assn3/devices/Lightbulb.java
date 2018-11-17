@@ -49,15 +49,16 @@ public class Lightbulb extends Device implements SwitchableDevice,EventHandler<A
 
   @Override
   public String toString() {
-    return "Lightbulb id " + super.getIdentifier().toString()+" Status: "+status.name();
+    return "Lightbulb id " + super.getIdentifier().toString() + " Status: " + status.name();
   }
   
   public Button getToggleButton() {
     return toggleButton;
   }
+  
   @Override
   public void handle(ActionEvent e) {
-    if(e.getSource() == toggleButton && isOn == false) {
+    if (e.getSource() == toggleButton && isOn == false) {
       this.toggle();
       status = Status.ON;
       statusProper.setValue("ON");

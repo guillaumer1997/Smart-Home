@@ -58,7 +58,7 @@ public class AdminController {
   private Hub model;
   
   public AdminController(Hub model) {
-    this.model=model;
+    this.model = model;
     Cams = model.getCameras();
     Therms = model.getThermostats();
     Smarts = model.getSmartPlugs();

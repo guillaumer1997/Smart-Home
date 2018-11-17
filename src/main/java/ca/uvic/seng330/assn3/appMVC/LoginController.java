@@ -35,15 +35,16 @@ public class LoginController {
   private void Login(MouseEvent event) throws IOException {
     passWord = (password.getText());
     userName = (username.getText());
-    for(UserInterface u : model.getUsers()) {
-      if(u.getName().equals(userName) && u.getPass().equals(passWord)) {
-        if(u.getStatus().equals(UserStatus.ADMIN)) {
+    for (UserInterface u : model.getUsers()) {
+      if (u.getName().equals(userName) && u.getPass().equals(passWord)) {
+        if (u.getStatus().equals(UserStatus.ADMIN)) {
           Parent UserPage = null;
           FXMLLoader loader = new FXMLLoader(getClass().getResource("AdminUI.fxml"));
           loader.setController(new AdminController(model));
           UserPage = loader.load();  
           Scene scene = new Scene(UserPage);
-          Stage stageTheEventSourceNodeBelongs = (Stage) ((Node)event.getSource()).getScene().getWindow();
+          Stage stageTheEventSourceNodeBelongs = (Stage) 
+              ((Node)event.getSource()).getScene().getWindow();
           stageTheEventSourceNodeBelongs.setScene(scene);
           stageTheEventSourceNodeBelongs.show();
           
@@ -54,7 +55,8 @@ public class LoginController {
           loader.setController(new UserController(model,u));
           UserPage = loader.load();
           Scene scene = new Scene(UserPage);
-          Stage stageTheEventSourceNodeBelongs = (Stage) ((Node)event.getSource()).getScene().getWindow();
+          Stage stageTheEventSourceNodeBelongs = (Stage)
+              ((Node)event.getSource()).getScene().getWindow();
           stageTheEventSourceNodeBelongs.setScene(scene);
           stageTheEventSourceNodeBelongs.show();
           

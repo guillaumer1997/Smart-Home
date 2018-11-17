@@ -20,6 +20,7 @@ public class MVCMain extends Application {
   private Stage primaryStage;
   
   public void start(Stage primaryStage) throws IOException {
+
     m = new Hub();
     Camera c = new Camera(m);
     Camera c2 = new Camera(m);
@@ -41,19 +42,19 @@ public class MVCMain extends Application {
     this.primaryStage = primaryStage;  
     primaryStage.setScene(scene);
     primaryStage.show();
-		
-	}
+  }
   
   public Hub getHub() {
+
     return m;
   }
   
 
    
 
-	public static void main(String[] args) {
-		launch(args);
-	}
+  public static void main(String[] args) {
+    launch(args);
+  }
 
  
 }

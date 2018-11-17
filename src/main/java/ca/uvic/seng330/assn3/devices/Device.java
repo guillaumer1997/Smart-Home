@@ -31,7 +31,7 @@ public abstract class Device {
   }
   
   public StringProperty getNameProper() {
-    return new SimpleStringProperty("Device ID: "+aUuid.toString());
+    return new SimpleStringProperty("Device ID: " + aUuid.toString());
   }
 
 }

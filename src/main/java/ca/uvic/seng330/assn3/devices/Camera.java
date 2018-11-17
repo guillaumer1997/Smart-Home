@@ -51,7 +51,7 @@ public class Camera extends Device implements EventHandler<ActionEvent> {
     Recording.setValue("Recording");
     System.out.println("recording");
     aMed.alert(this, "Started recording");
-    if(Math.random()*1000 > diskSize) {
+    if (Math.random() * 1000 > diskSize) {
       throw new CameraFullException("Camera Full");
     }
   }
@@ -82,11 +82,12 @@ public class Camera extends Device implements EventHandler<ActionEvent> {
 
   @Override
   public String toString() {
-    return "Camera id " + super.getIdentifier().toString() +" Status: "+status.name();
+    return "Camera id " + super.getIdentifier().toString() + " Status: " + status.name();
   }
+  
   @Override
   public void handle(ActionEvent e) {
-    if(e.getSource() == startRecording && isRecording!=true && status == Status.NORMAL) {
+    if (e.getSource() == startRecording && isRecording != true && status == Status.NORMAL) {
       try {
         this.record();
         startRecording.setText("Stop");
@@ -94,17 +95,17 @@ public class Camera extends Device implements EventHandler<ActionEvent> {
         // TODO Auto-generated catch block
         e1.printStackTrace();
       }
-    } else if(e.getSource() == startRecording && isRecording == true && status == Status.NORMAL) {
+    } else if (e.getSource() == startRecording && isRecording == true && status == Status.NORMAL) {
       this.stopRecording();
       startRecording.setText("Start");
     }
     
-    if(e.getSource() == changeStatus && status == Status.OFF) {
+    if (e.getSource() == changeStatus && status == Status.OFF) {
       statusProper.setValue("ON");
       status = Status.NORMAL;
       changeStatus.setText("Turn off");
-    } else if(e.getSource() == changeStatus && status == Status.NORMAL){
-      if(isRecording == true) {
+    } else if (e.getSource() == changeStatus && status == Status.NORMAL){
+      if (isRecording == true) {
         this.stopRecording();
         startRecording.setText("Start");
       }
@@ -115,8 +116,8 @@ public class Camera extends Device implements EventHandler<ActionEvent> {
   }
   
   public StringProperty getRecordingStatus() {
-      return Recording;
-    }
+    return Recording;
+  }
   
 }
   

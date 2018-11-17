@@ -13,7 +13,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import ca.uvic.seng330.assn3.Hub;
-
+import static org.junit.Assert.assertThat;
 import static org.testfx.api.FxAssert.verifyThat;
 import static org.testfx.matcher.control.LabeledMatchers.hasText;
 import java.io.IOException;
@@ -57,19 +57,15 @@ public class LoginUITest extends ApplicationTest  {
     verifyThat("#AdminBut", hasText("Create new Admin"));
   }
   
-  
-  /*
   @Test
-  public void TestUserGetsCreated() {
+  public void TestTextWorks() {
+    final String USERNAME_TEXTFIELD_ID = "#username";
     
-    clickOn("#AdminBut");
-    if(m.getUsers().isEmpty()) {
-      assert(false);
-    }
+    clickOn(USERNAME_TEXTFIELD_ID);
+    write("Neil Ernst");
     
-  }
+}
   
-  */
   
   
   

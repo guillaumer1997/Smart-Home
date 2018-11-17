@@ -36,7 +36,7 @@ public class SmartPlug extends Device implements SwitchableDevice, EventHandler<
   public void toggle() {
     isOn = !isOn;
     String status = "plug is now ";
-    if(isOn == true) {
+    if (isOn == true) {
       statusProper.setValue("ON");
     } else {
       statusProper.setValue("OFF");
@@ -46,7 +46,7 @@ public class SmartPlug extends Device implements SwitchableDevice, EventHandler<
 
   @Override
   public String toString() {
-    return "Smartplug id " + super.getIdentifier().toString()+" Status: "+status.name();
+    return "Smartplug id " + super.getIdentifier().toString() + " Status: " + status.name();
   }
   
   public Button getChangeStatus() {
@@ -59,7 +59,7 @@ public class SmartPlug extends Device implements SwitchableDevice, EventHandler<
 
   @Override
   public void handle(ActionEvent e) {
-    if(e.getSource() == changeStatus && isOn == false) {
+    if (e.getSource() == changeStatus && isOn == false) {
       isOn = true;
       status = Status.ON;
       statusProper.setValue("ON");

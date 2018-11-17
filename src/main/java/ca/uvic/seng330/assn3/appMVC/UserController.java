@@ -83,33 +83,32 @@ public class UserController {
     username.setText(User.getName());
     
     //code to fill out Camera Table
-    CamList.setCellValueFactory(cellData->cellData.getValue().getNameProper());
+    CamList.setCellValueFactory(cellData -> cellData.getValue().getNameProper());
     StartRecording.setCellValueFactory(new PropertyValueFactory<>("startRecording"));
-    RecordingStatus.setCellValueFactory(cellData->cellData.getValue().getRecordingStatus());
-    CameraStatus.setCellValueFactory(cellData->cellData.getValue().getStatusProper());
+    RecordingStatus.setCellValueFactory(cellData -> cellData.getValue().getRecordingStatus());
+    CameraStatus.setCellValueFactory(cellData -> cellData.getValue().getStatusProper());
     ChangeCameraStatus.setCellValueFactory(new PropertyValueFactory<>("changeStatus"));
     CameraTable.setItems(model.getCameras());
     
     //code to fill out Thermostat Table
-    ThermList.setCellValueFactory(cellData->cellData.getValue().getNameProper());
+    ThermList.setCellValueFactory(cellData -> cellData.getValue().getNameProper());
     ThermostatTable.setItems(model.getThermostats());
     
     //code to fill out SmartPlug table
-    SmartPlugList.setCellValueFactory(cellData->cellData.getValue().getNameProper());
-    SmartPlugStatus.setCellValueFactory(cellData->cellData.getValue().getStatusProper());
+    SmartPlugList.setCellValueFactory(cellData -> cellData.getValue().getNameProper());
+    SmartPlugStatus.setCellValueFactory(cellData -> cellData.getValue().getStatusProper());
     SmartPlugToggle.setCellValueFactory(new PropertyValueFactory<>("changeStatus"));
     SmartPlugTable.setItems(model.getSmartPlugs());
     
     //code to fill out Lightbulb table
-    LightList.setCellValueFactory(cellData->cellData.getValue().getNameProper());
-    LightStatus.setCellValueFactory(cellData->cellData.getValue().getStatusProper());
+    LightList.setCellValueFactory(cellData -> cellData.getValue().getNameProper());
+    LightStatus.setCellValueFactory(cellData -> cellData.getValue().getStatusProper());
     LightToggle.setCellValueFactory(new PropertyValueFactory<>("toggleButton"));
     LightTable.setItems(model.getLightBulbs());
 
     
   }
   
-  @FXML
   public void backToLogin(MouseEvent event) throws IOException {
     Parent root = null;
     FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginUI.fxml"));

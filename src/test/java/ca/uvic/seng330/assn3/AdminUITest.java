@@ -35,7 +35,7 @@ public class AdminUITest extends ApplicationTest{
   @Test
   public void TestSomething() {
     doubleClickOn("#DeviceTab");
-    WaitForAsyncUtils.waitForFxEvents();
+      WaitForAsyncUtils.waitForFxEvents();
   }
   
   

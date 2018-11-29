@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.Observable;
 import java.util.ResourceBundle;
 import javafx.application.Application;
+import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -42,7 +43,7 @@ public class AdminController {
   @FXML
   private ListView<Lightbulb> LightList;
   @FXML
-  private ListView<?> Logs;
+  private ListView<String> Logs;
   @FXML
   private TextField username;
   @FXML
@@ -59,21 +60,30 @@ public class AdminController {
   
   public AdminController(Hub model) {
     this.model = model;
-    Cams = model.getCameras();
-    Therms = model.getThermostats();
-    Smarts = model.getSmartPlugs();
-    Lights = model.getLightBulbs();
+
   }
  
   
   
   public void initialize() {
     
+    Thread dataCollect = new Thread() {
+      public void run() {
+        
+      Cams = model.getCameras();
+      Therms = model.getThermostats();
+      Smarts = model.getSmartPlugs();
+      Lights = model.getLightBulbs();
+      CamList.setItems(Cams);
+      ThermList.setItems(Therms);
+      SmartList.setItems(Smarts);
+      LightList.setItems(Lights);
+      Logs.setItems(model.getLogs());
+      }
+      
+    };
     
-    CamList.setItems(Cams);
-    ThermList.setItems(Therms);
-    SmartList.setItems(Smarts);
-    LightList.setItems(Lights);
+    dataCollect.start();
     ObservableList<UserInterface> User = model.getUsers();
     Users.setItems(User);
     

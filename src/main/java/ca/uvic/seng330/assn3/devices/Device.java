@@ -18,7 +18,7 @@ public abstract class Device {
   public Status getStatus() {
     // Since the status can't be NULL, then check IF NULL and IF return dummy
     // status.
-    return aStatus == null ? Status.NOT_AVAILABLE : aStatus;
+    return aStatus == null ? Status.OFF : aStatus;
   }
 
   public void setStatus(Status status) {

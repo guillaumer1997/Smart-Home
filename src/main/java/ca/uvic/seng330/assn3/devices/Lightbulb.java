@@ -35,8 +35,15 @@ public class Lightbulb extends Device implements SwitchableDevice,EventHandler<A
   @Override
   public void toggle() {
     isOn = !isOn;
-    String status = "lightbulb is now ";
-    aMed.alert(this, status + isOn);
+  }
+  
+  public void setStatusProper(Status status) {
+    if(status == Status.OFF) {
+    this.status = status;
+    isOn = false;
+    statusProper.setValue(status.name());
+    toggleButton.setText("Turn on");
+    }
   }
 
   public boolean getCondition() {
@@ -63,11 +70,15 @@ public class Lightbulb extends Device implements SwitchableDevice,EventHandler<A
       status = Status.ON;
       statusProper.setValue("ON");
       toggleButton.setText("Turn off");
+      String Status = "lightbulb is now ";
+      aMed.alert(this, Status + this.status.name());
     } else {
       this.toggle();
       status = Status.OFF;
       statusProper.setValue("OFF");
       toggleButton.setText("Turn on");
+      String Status = "lightbulb is now ";
+      aMed.alert(this, Status + this.status.name());
     }
     
   }

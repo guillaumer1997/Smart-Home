@@ -3,10 +3,10 @@ package ca.uvic.seng330.assn3;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
-
-import ca.uvic.seng330.assn3.devices.Device;
 import ca.uvic.seng330.assn3.users.*;
 import ca.uvic.seng330.assn3.devices.*;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.json.JSONObject;
@@ -25,9 +25,13 @@ public class Hub extends Device {
   ObservableList<SmartPlug> SmartPlugs;
   ObservableList<Device> Devices;
   ObservableList<UserInterface>Users;
+  ObservableList<String> logs;
   
 
   public void startup() {
+    
+    System.out.println("OONN");
+    
     // some logic about sending init messages or somethng.
   }
   
@@ -38,10 +42,30 @@ public class Hub extends Device {
     SmartPlugs = FXCollections.observableArrayList();
     Devices = FXCollections.observableArrayList();
     Users = FXCollections.observableArrayList();
+    logs = FXCollections.observableArrayList();
     
   }
 
-  public void shutdown() {}
+  public void shutdown() {
+    
+    for(SmartPlug s : this.getSmartPlugs()) {
+      s.setStatusProper(Status.OFF);
+    }
+    
+    for(Camera c : this.getCameras()) {
+      c.setStatusProper(Status.OFF);
+    }
+    
+    for(Lightbulb l : this.getLightBulbs()) {
+      l.setStatusProper(Status.OFF);
+    }
+    for(Thermostat t : this.getThermostats()) {
+      t.setStatusProper(Status.OFF);
+    }
+    log("Sytem shutdown ");
+    logs.add("INFO ca.uvic.seng330.assn3.Hub - Sytem shutdown");
+    
+  }
 
   
   public void register(Thermostat t)throws HubRegistrationException{
@@ -90,7 +114,7 @@ public class Hub extends Device {
   
   public void unregister(UserInterface User) throws HubRegistrationException {
     if (!Users.contains(User)) {
-      log("Unknown User unregister");
+      logger.info("Unknown User unregister");
       throw new HubRegistrationException("User does not exists!");
     } 
     Users.remove(User);
@@ -115,7 +139,7 @@ public class Hub extends Device {
     }
     Lightbulbs.remove(l);
     Devices.remove(l);
-    log("Device removed " + l);
+    logger.info("Device removed " + l);
     
   }
   
@@ -188,8 +212,8 @@ public class Hub extends Device {
     }
   }
 
-  public Map<UUID, Device> getDevices() {
-    return new HashMap<UUID, Device>(aDevices);
+  public ObservableList <Device> getDevices() {
+    return Devices;
   }
   
   public ObservableList<Thermostat> getThermostats() {
@@ -208,6 +232,10 @@ public class Hub extends Device {
   public ObservableList<Camera> getCameras() {
 
     return Cameras;
+  }
+  
+  public ObservableList<String> getLogs(){
+    return logs;
   }
     
   public ObservableList<UserInterface> getUsers() {

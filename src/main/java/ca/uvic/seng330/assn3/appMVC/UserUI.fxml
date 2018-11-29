@@ -21,6 +21,7 @@
             <TableColumn fx:id="RecordingStatus" prefWidth="100.0" />
             <TableColumn fx:id="CameraStatus" prefWidth="50.0" />
             <TableColumn fx:id="ChangeCameraStatus" prefWidth="150.0" />
+            <TableColumn fx:id="StreamList" prefWidth="75.0" />
         </columns>
       </TableView>
       <Text layoutX="26.0" layoutY="92.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cameras" />
@@ -44,6 +45,10 @@
       <TableView fx:id="ThermostatTable" layoutX="22.0" layoutY="379.0" prefHeight="133.0" prefWidth="556.0">
         <columns>
           <TableColumn fx:id="ThermList" prefWidth="250.0" text="Device:" />
+            <TableColumn fx:id="ThermStatus" prefWidth="75.0" />
+            <TableColumn fx:id="ThermToggle" prefWidth="100.0" />
+            <TableColumn fx:id="ThermTemp" prefWidth="150.0" />
+            <TableColumn fx:id="ThermUnit" prefWidth="100.0" />
         </columns>
       </TableView>
       <Text layoutX="27.0" layoutY="375.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Thermostats" />
@@ -55,6 +60,7 @@
         </columns>
       </TableView>
       <Text layoutX="21.0" layoutY="525.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lightbulbs" />
-      <Button layoutX="436.0" layoutY="41.0" mnemonicParsing="false" onMouseClicked="#backToLogin" text="Back to login" />
+      <Button layoutX="434.0" layoutY="26.0" mnemonicParsing="false" onMouseClicked="#backToLogin" text="Back to login" />
+      <Button layoutX="434.0" layoutY="62.0" mnemonicParsing="false" onMouseClicked="#shutdownSystem" prefHeight="27.0" prefWidth="98.0" text="Shutdown" />
    </children>
 </AnchorPane>

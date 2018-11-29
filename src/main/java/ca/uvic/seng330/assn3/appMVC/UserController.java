@@ -37,6 +37,8 @@ public class UserController {
   @FXML
   private TableColumn<Camera, String> CamList;
   @FXML
+  private TableColumn<Camera, Button> StreamList;
+  @FXML
   private TableColumn<Camera,Button> StartRecording;
   @FXML
   private TableColumn<Camera,String> RecordingStatus;
@@ -46,6 +48,14 @@ public class UserController {
   private TableColumn<Camera,String> CameraStatus;
   @FXML
   private TableView<Thermostat> ThermostatTable;
+  @FXML
+  private TableColumn<Thermostat,String> ThermStatus;
+  @FXML
+  private TableColumn<Thermostat, Button> ThermToggle;
+  @FXML
+  private TableColumn<Thermostat, String> ThermTemp;
+  @FXML
+  private TableColumn<Thermostat, Button> ThermUnit;
   @FXML
   private TableColumn<Thermostat, String> ThermList;
   @FXML
@@ -87,11 +97,16 @@ public class UserController {
     StartRecording.setCellValueFactory(new PropertyValueFactory<>("startRecording"));
     RecordingStatus.setCellValueFactory(cellData -> cellData.getValue().getRecordingStatus());
     CameraStatus.setCellValueFactory(cellData -> cellData.getValue().getStatusProper());
+    StreamList.setCellValueFactory(new PropertyValueFactory<>("openStream"));
     ChangeCameraStatus.setCellValueFactory(new PropertyValueFactory<>("changeStatus"));
     CameraTable.setItems(model.getCameras());
     
     //code to fill out Thermostat Table
     ThermList.setCellValueFactory(cellData -> cellData.getValue().getNameProper());
+    ThermStatus.setCellValueFactory(cellData -> cellData.getValue().getStatusProper());
+    ThermTemp.setCellValueFactory(cellData -> cellData.getValue().getTempProper());
+    ThermUnit.setCellValueFactory(new PropertyValueFactory<>("switchUnit"));
+    ThermToggle.setCellValueFactory(new PropertyValueFactory<>("toggleButton"));
     ThermostatTable.setItems(model.getThermostats());
     
     //code to fill out SmartPlug table
@@ -109,6 +124,8 @@ public class UserController {
     
   }
   
+  
+  
   public void backToLogin(MouseEvent event) throws IOException {
     Parent root = null;
     FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginUI.fxml"));
@@ -118,6 +135,11 @@ public class UserController {
     Stage stageTheEventSourceNodeBelongs = (Stage) ((Node)event.getSource()).getScene().getWindow();
     stageTheEventSourceNodeBelongs.setScene(scene);
     stageTheEventSourceNodeBelongs.show();
+  }
+  
+  @FXML
+  public void shutdownSystem(MouseEvent e) {
+    model.shutdown();
   }
 
 }

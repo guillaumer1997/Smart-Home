@@ -4,12 +4,14 @@ import ca.uvic.seng330.assn3.Hub;
 import ca.uvic.seng330.assn3.HubRegistrationException;
 import ca.uvic.seng330.assn3.Mediator;
 import ca.uvic.seng330.assn3.devices.Status;
+import javafx.application.Application;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.Labeled;
+import javafx.stage.Stage;
 
 public class Camera extends Device implements EventHandler<ActionEvent> {
 
@@ -17,9 +19,12 @@ public class Camera extends Device implements EventHandler<ActionEvent> {
   private int diskSize;
   public Button startRecording;
   public Button changeStatus;
+  public Button openStream;
   private StringProperty Recording;
   private StringProperty statusProper;
   private Status status;
+  private boolean stream;
+  CameraStream ctc;
 
   private final Hub aMed;
 
@@ -31,9 +36,13 @@ public class Camera extends Device implements EventHandler<ActionEvent> {
     Recording = new SimpleStringProperty("Not recording");
     statusProper = new SimpleStringProperty(status.name());
     startRecording = new Button("Start");
+    openStream = new Button("Open stream");
     changeStatus = new Button("Turn ON");
     changeStatus.setOnAction(this);
+    ctc = new CameraStream();
+    openStream.setOnAction(this);
     startRecording.setOnAction(this);
+    stream = false;
     try {
       aMed.register(this);
     } catch (HubRegistrationException e) {
@@ -71,6 +80,18 @@ public class Camera extends Device implements EventHandler<ActionEvent> {
     return statusProper;
   }
   
+  public void setStatusProper(Status status) {
+    if(status == Status.OFF && this.status!=Status.OFF) {
+      if(isRecording ==  true) {
+        this.stopRecording();
+      }
+      startRecording.setText("Start");
+      statusProper.setValue("OFF");
+      this.status = Status.OFF;
+      changeStatus.setText("Turn on");
+    }
+  }
+  
   public Button getStartRecording() {
     return startRecording;
   }
@@ -78,11 +99,14 @@ public class Camera extends Device implements EventHandler<ActionEvent> {
   public Button getChangeStatus() {
     return changeStatus;
   }
+  public Button getOpenStream() {
+    return openStream;
+  }
   
 
   @Override
   public String toString() {
-    return "Camera id " + super.getIdentifier().toString() + " Status: " + status.name();
+    return "Camera id " + super.getIdentifier().toString() + " Status: " + super.getStatus().name();
   }
   
   @Override
@@ -113,6 +137,15 @@ public class Camera extends Device implements EventHandler<ActionEvent> {
       status = Status.OFF;
       changeStatus.setText("Turn on");
     }
+    if(e.getSource() == openStream && status == Status.NORMAL) {
+     Stage c = new Stage();
+     try {
+      ctc.start(c);
+    } catch (Exception e1) {
+      // TODO Auto-generated catch block
+      e1.printStackTrace();
+    }
+    } 
   }
   
   public StringProperty getRecordingStatus() {

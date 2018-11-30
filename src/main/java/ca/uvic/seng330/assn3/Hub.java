@@ -1,5 +1,6 @@
 package ca.uvic.seng330.assn3;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -30,7 +31,7 @@ public class Hub extends Device {
 
   public void startup() {
     
-    System.out.println("OONN");
+    //System.out.println("OONN");
     
     // some logic about sending init messages or somethng.
   }
@@ -62,7 +63,7 @@ public class Hub extends Device {
     for(Thermostat t : this.getThermostats()) {
       t.setStatusProper(Status.OFF);
     }
-    log("Sytem shutdown ");
+    logs.add("INFO - SYSTEM SHUTDOWN " + this.getIdentifier() );
     
   }
 
@@ -71,8 +72,11 @@ public class Hub extends Device {
     if (!Thermostats.contains(t)) {
       Thermostats.add(t);
       Devices.add(t);
+      logs.add("ALERT - THERMOSTAT ADDED ID: " + t.getIdentifier() + " @ " + new Date().toString());
+
       
     } else {
+      logs.add("ALERT - THERMOSTAT " + t + " was already registered" + " @ " + new Date().toString());
       throw new HubRegistrationException(t + " was already registered");
     }
     
@@ -82,8 +86,11 @@ public class Hub extends Device {
     if (!Cameras.contains(c)) {
       Cameras.add(c);
       Devices.add(c);
+      logs.add("ALERT - CAMERA ADDED ID: " + c.getIdentifier() + " @ " + new Date().toString());
+
       
     } else {
+      logs.add("ALERT - CAMERA " + c + " was already registered" + " @ " + new Date().toString());
       throw new HubRegistrationException(c + " was already registered");
     }
     
@@ -93,8 +100,11 @@ public class Hub extends Device {
     if (!SmartPlugs.contains(s)) {
       SmartPlugs.add(s);
       Devices.add(s);
+      logs.add("ALERT - SMARTPLUG ADDED ID: " + s.getIdentifier() + " @ " + new Date().toString());
+
       
     } else {
+      logs.add("ALERT - SMARTPLUG " + s + " was already registered" + " @ " + new Date().toString());
       throw new HubRegistrationException(s + " was already registered");
     }
     
@@ -103,8 +113,11 @@ public class Hub extends Device {
     if (!Lightbulbs.contains(l)) {
       Lightbulbs.add(l);
       Devices.add(l);
+      logs.add("ALERT - LIGHTBULB ADDED ID: " + l.getIdentifier() + " @ " + new Date().toString());
+
       
     } else {
+      logs.add("ALERT - SMARTPLUG " + l.getIdentifier() + " was already registered" + " @ " + new Date().toString());
       throw new HubRegistrationException(l + " was already registered");
     }
     
@@ -114,17 +127,24 @@ public class Hub extends Device {
   public void unregister(UserInterface User) throws HubRegistrationException {
     if (!Users.contains(User)) {
       logger.info("Unknown User unregister");
+      logs.add("ALERT - UNKNOWN USER: " + " @ " + new Date().toString());
+
       throw new HubRegistrationException("User does not exists!");
     } 
     Users.remove(User);
     log("User removed " + User);
+    logs.add("ALERT - USER REMOVED: "  + " @ " + new Date().toString());
+
   }
   
   public void register(UserInterface User) throws HubRegistrationException {
     if (!Users.contains(User)) {
       Users.add(User);
-      System.out.println("new user created");
+      logs.add("ALERT - USER ADDED " + " @ " + new Date().toString());
+
+     // System.out.println("new user created");
     } else {
+      logs.add("ALERT - USER ALREADY REGISTERED: " + User + " @ " + new Date().toString());
       throw new HubRegistrationException(User + " was already registered");
     }
   }
@@ -133,47 +153,61 @@ public class Hub extends Device {
   public void unregister(Lightbulb l) throws HubRegistrationException{
     if (!Lightbulbs.contains(l)) {
       log("Unknown Device unregister");
+      logs.add("ALERT - UNKNOWN LIGHTBULB: " + l.getIdentifier() + " @ " + new Date().toString());
       throw new HubRegistrationException("Device does not exists!");
       
     }
     Lightbulbs.remove(l);
     Devices.remove(l);
     logger.info("Device removed " + l);
+    logs.add("ALERT - LIGHTBULB REMOVED: " + l.getIdentifier() + " @ " + new Date().toString());
+
     
   }
   
   public void unregister(Camera c) throws HubRegistrationException {
     if (!Cameras.contains(c)) {
       log("Unknown Device unregister");
+      logs.add("ALERT - UNKNOWN CAMERA: " + c.getIdentifier() + " @ " + new Date().toString());
       throw new HubRegistrationException("Device does not exists!");
       
     }
     Cameras.remove(c);
     Devices.remove(c);
     log("Device removed " + c);
+    logs.add("ALERT - CAMERA REMOVED: " + c.getIdentifier() + " @ " + new Date().toString());
+
     
   }
   
   public void unregister(SmartPlug s) throws HubRegistrationException{
     if (!SmartPlugs.contains(s)) {
       log("Unknown Device unregister");
+      logs.add("ALERT - UNKNOWN SMARTPLUG: " + s.getIdentifier() + " @ " + new Date().toString());
+
       throw new HubRegistrationException("Device does not exists!");
       
     }
     SmartPlugs.remove(s);
     Devices.remove(s);
     log("Device removed " + s);
+    logs.add("ALERT - SMARTPLUG REMOVED: " + s.getIdentifier() + " @ " + new Date().toString());
+
     
   }
   public void unregister(Thermostat t) throws HubRegistrationException{
     if (!Thermostats.contains(t)) {
       log("Unknown Device unregister");
+      logs.add("ALERT - UNKNOWN THERMOSTAT: " + t.getIdentifier() + " @ " + new Date().toString());
+
       throw new HubRegistrationException("Device does not exists!");
       
     }
     Thermostats.remove(t);
     Devices.remove(t);
     log("Device removed " + t);
+    logs.add("ALERT - THERMOSTAT REMOVED: " + t.getIdentifier() + " @ " + new Date().toString());
+
     
   }
   

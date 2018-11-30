@@ -1,8 +1,10 @@
 package ca.uvic.seng330.assn3.devices;
 
+import java.util.Date;
+
 import ca.uvic.seng330.assn3.Hub;
 import ca.uvic.seng330.assn3.HubRegistrationException;
-import ca.uvic.seng330.assn3.Mediator;
+//import ca.uvic.seng330.assn3.Mediator;
 import ca.uvic.seng330.assn3.devices.Status;
 import javafx.application.Application;
 import javafx.beans.property.SimpleStringProperty;
@@ -60,7 +62,11 @@ public class Camera extends Device implements EventHandler<ActionEvent> {
     Recording.setValue("Recording");
     System.out.println("recording");
     aMed.alert(this, "Started recording");
-    if (/*Math.random()  */1000 > diskSize) {
+    aMed.getLogs().add("INFO - CAMERA RECORDING STARTED: " + this.getIdentifier() + " @ " +new Date().toString());
+
+    if (Math.random() * 1000 > diskSize) {
+      aMed.getLogs().add("ALERT - CAMERA RECORDING HALTED - CAMERA FULL: " + this.getIdentifier() + " @ " +new Date().toString());
+
       throw new CameraFullException("Camera Full");
     }
   }
@@ -69,6 +75,8 @@ public class Camera extends Device implements EventHandler<ActionEvent> {
     isRecording =  false;
     Recording.setValue("Not Recording");
     aMed.alert(this, "Stopped recording");
+    aMed.getLogs().add("INFO - CAMERA RECORDING STOPPED: " + this.getIdentifier() + " @ " +new Date().toString());
+
   }
 
   @Override
@@ -128,6 +136,8 @@ public class Camera extends Device implements EventHandler<ActionEvent> {
       statusProper.setValue("ON");
       status = Status.NORMAL;
       changeStatus.setText("Turn OFF");
+      aMed.getLogs().add("INFO - CAMERA STATUS ON ID: " + this.getIdentifier() + " @ " +new Date().toString());
+
     } else if (e.getSource() == changeStatus && status == Status.NORMAL){
       if (isRecording == true) {
         this.stopRecording();
@@ -136,10 +146,14 @@ public class Camera extends Device implements EventHandler<ActionEvent> {
       statusProper.setValue("OFF");
       status = Status.OFF;
       changeStatus.setText("Turn ON");
+      aMed.getLogs().add("INFO - CAMERA STATUS OFF ID: " + this.getIdentifier() + " @ " +new Date().toString());
+
     }
     if(e.getSource() == openStream && status == Status.NORMAL) {
      Stage c = new Stage();
      CameraStream s = new CameraStream();
+     aMed.getLogs().add("INFO - CAMERA STREAM ACCESSED: " + this.getIdentifier() + " @ " +new Date().toString());
+
      try {
       s.startStream(c);
     } catch (Exception e1) {

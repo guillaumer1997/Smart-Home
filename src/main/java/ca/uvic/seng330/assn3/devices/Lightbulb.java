@@ -1,8 +1,10 @@
 package ca.uvic.seng330.assn3.devices;
 
+import java.util.Date;
+
 import ca.uvic.seng330.assn3.Hub;
 import ca.uvic.seng330.assn3.HubRegistrationException;
-import ca.uvic.seng330.assn3.Mediator;
+//import ca.uvic.seng330.assn3.Mediator;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
@@ -72,6 +74,8 @@ public class Lightbulb extends Device implements SwitchableDevice,EventHandler<A
       toggleButton.setText("Turn OFF");
       String Status = "lightbulb is now ";
       aMed.alert(this, Status + this.status.name());
+      aMed.getLogs().add("INFO - LIGHTBULB STATUS ON ID: " + this.getIdentifier() + " @ " +new Date().toString());
+
     } else {
       this.toggle();
       status = Status.OFF;
@@ -79,6 +83,8 @@ public class Lightbulb extends Device implements SwitchableDevice,EventHandler<A
       toggleButton.setText("Turn ON");
       String Status = "lightbulb is now ";
       aMed.alert(this, Status + this.status.name());
+      aMed.getLogs().add("INFO - LIGHTBULB STATUS OFF ID: " + this.getIdentifier() + " @ " + new Date().toString());
+
     }
     
   }

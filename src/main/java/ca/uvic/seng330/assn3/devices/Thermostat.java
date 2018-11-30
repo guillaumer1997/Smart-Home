@@ -1,8 +1,10 @@
 package ca.uvic.seng330.assn3.devices;
 
+import java.util.Date;
+
 import ca.uvic.seng330.assn3.Hub;
 import ca.uvic.seng330.assn3.HubRegistrationException;
-import ca.uvic.seng330.assn3.Mediator;
+//import ca.uvic.seng330.assn3.Mediator;
 import ca.uvic.seng330.assn3.devices.Status;
 import ca.uvic.seng330.assn3.devices.Temperature.TemperatureOutofBoundsException;
 import ca.uvic.seng330.assn3.devices.Temperature.Unit;
@@ -114,6 +116,8 @@ public class Thermostat extends Device implements EventHandler<ActionEvent>{
       toggleButton.setText("Turn OFF");
       String Status = "Thermostat is now ";
       aMed.alert(this, Status + this.status.name());
+      aMed.getLogs().add("INFO - THERMOSTAT STATUS ON ID: " + this.getIdentifier() + " @ " +new Date().toString());
+
       
     } else if(event.getSource() == toggleButton && isOn == true) {
       isOn = false;
@@ -123,16 +127,21 @@ public class Thermostat extends Device implements EventHandler<ActionEvent>{
       toggleButton.setText("Turn ON");
       String Status = "Thermostat is now ";
       aMed.alert(this, Status + this.status.name());
+      aMed.getLogs().add("INFO - THERMOSTAT STATUS ON ID: " + this.getIdentifier() + " @ " +new Date().toString());
+
     }
     if(event.getSource() == switchUnit && isOn == true) {
       this.setPoint.toggleUnit();
       properTemp.setValue(setPoint.getUnit().toString() + " : " + Double.toString(setPoint.getTemperature()));
+      aMed.getLogs().add("INFO - THERMOSTAT UNIT CHANGE TO " + this.setPoint.getUnit() + " ID: " +  this.getIdentifier() + " @ " +new Date().toString());
+
     }
     if(event.getSource() == setButton && isOn == true) {
       try {
         setTemp(new Temperature(Double.valueOf(newTemp.getText()), setPoint.getUnit()));
         properTemp.setValue(setPoint.getUnit().toString() + " : " + Double.toString(setPoint.getTemperature()));
         newTemp.setText("");
+        aMed.getLogs().add("INFO - THERMOSTAT TEMPERATURE CHANGE TO "  + this.setPoint.getTemperature() + " @ " + new Date().toString());
       } catch (NumberFormatException e) {
         // TODO Auto-generated catch block
         e.printStackTrace();

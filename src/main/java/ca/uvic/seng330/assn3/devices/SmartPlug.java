@@ -1,8 +1,10 @@
 package ca.uvic.seng330.assn3.devices;
 
+import java.util.Date;
+
 import ca.uvic.seng330.assn3.Hub;
 import ca.uvic.seng330.assn3.HubRegistrationException;
-import ca.uvic.seng330.assn3.Mediator;
+//import ca.uvic.seng330.assn3.Mediator;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
@@ -79,6 +81,8 @@ public class SmartPlug extends Device implements SwitchableDevice, EventHandler<
       changeStatus.setText("Turn OFF");
       String Status = "SmartPlug is now ";
       aMed.alert(this, Status + this.status.name());
+      aMed.getLogs().add("INFO - SMARTPLUG STATUS ON ID: " + this.getIdentifier() + " @ " +new Date().toString());
+
     } else {
       isOn = false;
       status = Status.OFF;
@@ -87,6 +91,8 @@ public class SmartPlug extends Device implements SwitchableDevice, EventHandler<
       changeStatus.setText("Turn ON");
       String Status = "SmartPlug is now ";
       aMed.alert(this, Status + this.status.name());
+      aMed.getLogs().add("INFO - SMARTPLUG STATUS OFF ID: " + this.getIdentifier() + " @ " +new Date().toString());
+
     }
     
   }

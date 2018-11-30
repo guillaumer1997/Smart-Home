@@ -31,7 +31,7 @@ public class Camera extends Device implements EventHandler<ActionEvent> {
   public Camera(Hub med) {
     super();
     aMed = med;
-    diskSize = 999;
+    diskSize = 100;
     status = Status.OFF;
     Recording = new SimpleStringProperty("Not recording");
     statusProper = new SimpleStringProperty(status.name());
@@ -60,7 +60,7 @@ public class Camera extends Device implements EventHandler<ActionEvent> {
     Recording.setValue("Recording");
     System.out.println("recording");
     aMed.alert(this, "Started recording");
-    if (Math.random() * 1000 > diskSize) {
+    if (/*Math.random()  */1000 > diskSize) {
       throw new CameraFullException("Camera Full");
     }
   }
@@ -88,7 +88,7 @@ public class Camera extends Device implements EventHandler<ActionEvent> {
       startRecording.setText("Start");
       statusProper.setValue("OFF");
       this.status = Status.OFF;
-      changeStatus.setText("Turn on");
+      changeStatus.setText("Turn ON");
     }
   }
   
@@ -117,7 +117,7 @@ public class Camera extends Device implements EventHandler<ActionEvent> {
         startRecording.setText("Stop");
       } catch (CameraFullException e1) {
         // TODO Auto-generated catch block
-        e1.printStackTrace();
+        aMed.log("");
       }
     } else if (e.getSource() == startRecording && isRecording == true && status == Status.NORMAL) {
       this.stopRecording();
@@ -127,7 +127,7 @@ public class Camera extends Device implements EventHandler<ActionEvent> {
     if (e.getSource() == changeStatus && status == Status.OFF) {
       statusProper.setValue("ON");
       status = Status.NORMAL;
-      changeStatus.setText("Turn off");
+      changeStatus.setText("Turn OFF");
     } else if (e.getSource() == changeStatus && status == Status.NORMAL){
       if (isRecording == true) {
         this.stopRecording();
@@ -135,12 +135,13 @@ public class Camera extends Device implements EventHandler<ActionEvent> {
       }
       statusProper.setValue("OFF");
       status = Status.OFF;
-      changeStatus.setText("Turn on");
+      changeStatus.setText("Turn ON");
     }
     if(e.getSource() == openStream && status == Status.NORMAL) {
      Stage c = new Stage();
+     CameraStream s = new CameraStream();
      try {
-      ctc.start(c);
+      s.startStream(c);
     } catch (Exception e1) {
       // TODO Auto-generated catch block
       e1.printStackTrace();

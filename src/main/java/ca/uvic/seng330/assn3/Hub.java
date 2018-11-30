@@ -63,7 +63,6 @@ public class Hub extends Device {
       t.setStatusProper(Status.OFF);
     }
     log("Sytem shutdown ");
-    logs.add("INFO ca.uvic.seng330.assn3.Hub - Sytem shutdown");
     
   }
 
@@ -186,6 +185,7 @@ public class Hub extends Device {
    */
   public void log(String logMsg) {
     logger.info(logMsg);
+    logs.add(logMsg);
   }
 
   /**

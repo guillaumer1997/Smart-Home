@@ -23,7 +23,7 @@ public class Lightbulb extends Device implements SwitchableDevice,EventHandler<A
     isOn = false;
     statusProper = new SimpleStringProperty("OFF");
     status = status.OFF;
-    toggleButton = new Button("Turn on");
+    toggleButton = new Button("Turn ON");
     toggleButton.setOnAction(this);
     try {
       aMed.register(this);
@@ -42,7 +42,7 @@ public class Lightbulb extends Device implements SwitchableDevice,EventHandler<A
     this.status = status;
     isOn = false;
     statusProper.setValue(status.name());
-    toggleButton.setText("Turn on");
+    toggleButton.setText("Turn ON");
     }
   }
 
@@ -69,14 +69,14 @@ public class Lightbulb extends Device implements SwitchableDevice,EventHandler<A
       this.toggle();
       status = Status.ON;
       statusProper.setValue("ON");
-      toggleButton.setText("Turn off");
+      toggleButton.setText("Turn OFF");
       String Status = "lightbulb is now ";
       aMed.alert(this, Status + this.status.name());
     } else {
       this.toggle();
       status = Status.OFF;
       statusProper.setValue("OFF");
-      toggleButton.setText("Turn on");
+      toggleButton.setText("Turn ON");
       String Status = "lightbulb is now ";
       aMed.alert(this, Status + this.status.name());
     }

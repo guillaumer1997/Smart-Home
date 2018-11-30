@@ -8,16 +8,15 @@ import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
-public class CameraStream extends Application{
+public class CameraStream {
   private Stage primaryStage;
 
-  @Override
-  public void start(Stage primaryStage) throws Exception {
+  public void startStream(Stage primaryStage) throws Exception {
     this.primaryStage = primaryStage;
     WebView webview = new WebView();
 
     webview.getEngine().loadContent(
-      "<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/Oxx5JKTB7aU\" frameborder=\"0\" allow=\"accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe>"
+      "<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/fAWXVOGPKGA\" frameborder=\"0\" allow=\"accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe>"
     );
     webview.setPrefSize(570, 330);
 
@@ -28,9 +27,6 @@ public class CameraStream extends Application{
     });
   }
   
-  public static void main(String[] args) {
-    launch(args);
-  }
   
 
 

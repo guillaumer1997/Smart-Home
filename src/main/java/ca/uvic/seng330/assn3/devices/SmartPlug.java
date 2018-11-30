@@ -21,7 +21,7 @@ public class SmartPlug extends Device implements SwitchableDevice, EventHandler<
     super();
     aMed = med;
     isOn = false;
-    changeStatus = new Button("Turn on");
+    changeStatus = new Button("Turn ON");
     changeStatus.setOnAction(this);
     status = super.getStatus();
     statusProper = new SimpleStringProperty("OFF");
@@ -65,7 +65,7 @@ public class SmartPlug extends Device implements SwitchableDevice, EventHandler<
     this.status = status;
     isOn =  false;
     statusProper.setValue(status.name());
-    changeStatus.setText("Turn on");
+    changeStatus.setText("Turn ON");
     }
   }
 
@@ -76,7 +76,7 @@ public class SmartPlug extends Device implements SwitchableDevice, EventHandler<
       status = Status.ON;
       super.setStatus(Status.ON);
       statusProper.setValue("ON");
-      changeStatus.setText("Turn off");
+      changeStatus.setText("Turn OFF");
       String Status = "SmartPlug is now ";
       aMed.alert(this, Status + this.status.name());
     } else {
@@ -84,7 +84,7 @@ public class SmartPlug extends Device implements SwitchableDevice, EventHandler<
       status = Status.OFF;
       super.setStatus(Status.OFF);
       statusProper.setValue("OFF");
-      changeStatus.setText("Turn on");
+      changeStatus.setText("Turn ON");
       String Status = "SmartPlug is now ";
       aMed.alert(this, Status + this.status.name());
     }

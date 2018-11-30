@@ -49,6 +49,8 @@
             <TableColumn fx:id="ThermToggle" prefWidth="100.0" />
             <TableColumn fx:id="ThermTemp" prefWidth="150.0" />
             <TableColumn fx:id="ThermUnit" prefWidth="100.0" />
+            <TableColumn fx:id="setButton" prefWidth="100.0" />
+            <TableColumn fx:id="newTemp" prefWidth="75.0" />
         </columns>
       </TableView>
       <Text layoutX="27.0" layoutY="375.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Thermostats" />
@@ -60,7 +62,7 @@
         </columns>
       </TableView>
       <Text layoutX="21.0" layoutY="525.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lightbulbs" />
-      <Button layoutX="434.0" layoutY="26.0" mnemonicParsing="false" onMouseClicked="#backToLogin" text="Back to login" />
-      <Button layoutX="434.0" layoutY="62.0" mnemonicParsing="false" onMouseClicked="#shutdownSystem" prefHeight="27.0" prefWidth="98.0" text="Shutdown" />
+      <Button layoutX="434.0" layoutY="34.0" mnemonicParsing="false" onMouseClicked="#backToLogin" text="Back to login" />
+      <Button layoutX="434.0" layoutY="66.0" mnemonicParsing="false" onMouseClicked="#shutdownSystem" prefHeight="27.0" prefWidth="98.0" text="Shutdown" />
    </children>
 </AnchorPane>

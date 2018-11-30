@@ -79,6 +79,19 @@ public class AdminController {
       SmartList.setItems(Smarts);
       LightList.setItems(Lights);
       Logs.setItems(model.getLogs());
+      
+      for(Camera c : model.getCameras()) {
+        model.log(c.toString());
+      }
+      for(Lightbulb l : model.getLightBulbs()) {
+        model.log(l.toString());
+      }
+      for(SmartPlug s : model.getSmartPlugs()) {
+        model.log(s.toString());
+      }
+      for(Thermostat t : model.getThermostats()) {
+        model.log(t.toString());
+      }
       }
       
     };
@@ -116,6 +129,26 @@ public class AdminController {
     if(LightList.getSelectionModel().getSelectedItem()!=null) {
       model.unregister(LightList.getSelectionModel().getSelectedItem());
     }
+  }
+  
+  @FXML
+  public void RegLight(MouseEvent event) {
+    Lightbulb l = new Lightbulb(model);
+  }
+  
+  @FXML
+  public void RegCam(MouseEvent event) {
+    Camera c = new Camera(model);
+  }
+  
+  @FXML
+  public void RegTherm(MouseEvent event) {
+    Thermostat t = new Thermostat(model);
+  }
+  
+  @FXML
+  public void RegSmart(MouseEvent event) {
+    SmartPlug s = new SmartPlug(model);
   }
   
   @FXML

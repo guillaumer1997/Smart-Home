@@ -17,6 +17,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -74,6 +75,10 @@ public class UserController {
   private TableColumn<Lightbulb, Button>LightToggle;
   @FXML
   private TableColumn<Lightbulb,String>LightList;
+  @FXML
+  private TableColumn<Thermostat, Button> setButton;
+  @FXML
+  private TableColumn<Thermostat, TextField> newTemp;
   
   
  
@@ -107,6 +112,8 @@ public class UserController {
     ThermTemp.setCellValueFactory(cellData -> cellData.getValue().getTempProper());
     ThermUnit.setCellValueFactory(new PropertyValueFactory<>("switchUnit"));
     ThermToggle.setCellValueFactory(new PropertyValueFactory<>("toggleButton"));
+    setButton.setCellValueFactory(new PropertyValueFactory<>("setButton"));
+    newTemp.setCellValueFactory(new PropertyValueFactory<>("newTemp"));
     ThermostatTable.setItems(model.getThermostats());
     
     //code to fill out SmartPlug table

@@ -4,12 +4,14 @@ import ca.uvic.seng330.assn3.Hub;
 import ca.uvic.seng330.assn3.HubRegistrationException;
 import ca.uvic.seng330.assn3.Mediator;
 import ca.uvic.seng330.assn3.devices.Status;
+import ca.uvic.seng330.assn3.devices.Temperature.TemperatureOutofBoundsException;
 import ca.uvic.seng330.assn3.devices.Temperature.Unit;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 
 public class Thermostat extends Device implements EventHandler<ActionEvent>{
   private final Hub aMed;
@@ -20,6 +22,8 @@ public class Thermostat extends Device implements EventHandler<ActionEvent>{
   private Temperature setPoint;
   private Button toggleButton;
   private Button switchUnit;
+  private Button setButton;
+  private TextField newTemp;
 
   {
     try {
@@ -34,6 +38,9 @@ public class Thermostat extends Device implements EventHandler<ActionEvent>{
     this.aMed = mediator;
     toggleButton = new Button("Turn ON");
     switchUnit = new Button("Switch Unit");
+    setButton =  new Button("set Temperature");
+    newTemp = new TextField();
+    setButton.setOnAction(this);
     isOn = false;
     toggleButton.setOnAction(this);
     switchUnit.setOnAction(this);
@@ -68,6 +75,14 @@ public class Thermostat extends Device implements EventHandler<ActionEvent>{
   
   public Button getSwitchUnit() {
     return switchUnit;
+  }
+  
+  public Button getSetButton() {
+    return setButton;
+  }
+  
+  public TextField getNewTemp() {
+    return newTemp;
   }
   
   public StringProperty getStatusProper() {
@@ -113,6 +128,20 @@ public class Thermostat extends Device implements EventHandler<ActionEvent>{
       this.setPoint.toggleUnit();
       properTemp.setValue(setPoint.getUnit().toString() + " : " + Double.toString(setPoint.getTemperature()));
     }
+    if(event.getSource() == setButton && isOn == true) {
+      try {
+        setTemp(new Temperature(Double.valueOf(newTemp.getText()), setPoint.getUnit()));
+        properTemp.setValue(setPoint.getUnit().toString() + " : " + Double.toString(setPoint.getTemperature()));
+        newTemp.setText("");
+      } catch (NumberFormatException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      } catch (TemperatureOutofBoundsException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      }
+    }
+
     
     // TODO Auto-generated method stub
     

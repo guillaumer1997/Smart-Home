@@ -55,6 +55,15 @@ public class MVCMain extends Application {
     primaryStage.setScene(scene);
     primaryStage.show();
     
+    primaryStage.setOnCloseRequest(e -> {
+      try {
+        m.saveLogs();
+      } catch (IOException e1) {
+        // TODO Auto-generated catch block
+        e1.printStackTrace();
+      }
+    });
+    
     
   }
   

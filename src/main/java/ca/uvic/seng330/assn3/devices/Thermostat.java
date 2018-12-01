@@ -68,7 +68,7 @@ public class Thermostat extends Device implements EventHandler<ActionEvent>{
   public void setTemp(Temperature t) {
     setPoint = t;
     aMed.alert(this, "Setting temp to " + t.getTemperature());
-    status = Status.NORMAL;
+    status = Status.ON;
   }
   
   public Button getToggleButton() {
@@ -103,6 +103,10 @@ public class Thermostat extends Device implements EventHandler<ActionEvent>{
       toggleButton.setText("Turn ON");
       isOn = false;
     }
+  }
+  
+  public Temperature getTemp() {
+    return setPoint;
   }
 
 
@@ -154,5 +158,15 @@ public class Thermostat extends Device implements EventHandler<ActionEvent>{
     
     // TODO Auto-generated method stub
     
+  }
+  
+  public void climateChange(Double t, Unit Temp) {
+    try {
+      this.setTemp(new Temperature(t, Temp));
+      properTemp.setValue(setPoint.getUnit().toString() + " : " + Double.toString(setPoint.getTemperature()));
+    } catch (TemperatureOutofBoundsException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
   }
 }

@@ -9,7 +9,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ca.uvic.seng330.assn3.Hub;
 import ca.uvic.seng330.assn3.HubRegistrationException;
-import ca.uvic.seng330.assn3.Mediator;
 import ca.uvic.seng330.assn3.devices.Device;
 
 public class Admin implements UserInterface {

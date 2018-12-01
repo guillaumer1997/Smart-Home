@@ -95,7 +95,7 @@ public class AdminController {
       }
       
     };
-    
+    dataCollect.setDaemon(true);
     dataCollect.start();
     ObservableList<UserInterface> User = model.getUsers();
     Users.setItems(User);

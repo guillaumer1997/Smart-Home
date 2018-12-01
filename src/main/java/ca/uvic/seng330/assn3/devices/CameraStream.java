@@ -16,7 +16,7 @@ public class CameraStream {
     WebView webview = new WebView();
 
     webview.getEngine().loadContent(
-      "<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/fAWXVOGPKGA\" frameborder=\"0\" allow=\"accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe>"
+      "<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/eisKxhjBnZ0\" frameborder=\"0\" allow=\"accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe>"
     );
     webview.setPrefSize(570, 330);
 

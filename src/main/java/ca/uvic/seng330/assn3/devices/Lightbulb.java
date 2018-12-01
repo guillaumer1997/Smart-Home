@@ -41,10 +41,16 @@ public class Lightbulb extends Device implements SwitchableDevice,EventHandler<A
   
   public void setStatusProper(Status status) {
     if(status == Status.OFF) {
-    this.status = status;
-    isOn = false;
-    statusProper.setValue(status.name());
-    toggleButton.setText("Turn ON");
+      this.status = status;
+      isOn = false;
+      statusProper.setValue(status.name());
+      toggleButton.setText("Turn ON");
+    }
+    else if(status == Status.ON) {
+      this.status = status;
+      isOn = true;
+      statusProper.setValue(status.name());
+      toggleButton.setText("Turn OFF");
     }
   }
 
@@ -54,6 +60,10 @@ public class Lightbulb extends Device implements SwitchableDevice,EventHandler<A
   
   public StringProperty getStatusProper() {
     return statusProper;
+  }
+  
+  public Status getStatus() {
+    return status;
   }
 
   @Override

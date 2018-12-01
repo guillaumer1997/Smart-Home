@@ -13,12 +13,16 @@ import javafx.collections.ObservableList;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 
 
-public class Hub extends Device {
+public class Hub {
 
-  private HashMap<UUID, Device> aDevices = new HashMap<UUID, Device>();
-  private HashMap<UUID, UserInterface> aUsers = new HashMap<UUID, UserInterface>();
   private Logger logger = LoggerFactory.getLogger(Hub.class);
   ObservableList<Lightbulb> Lightbulbs;
   ObservableList<Camera> Cameras;
@@ -30,10 +34,26 @@ public class Hub extends Device {
   
 
   public void startup() {
-    
-    //System.out.println("OONN");
-    
-    // some logic about sending init messages or somethng.
+    String temp = "";
+    try {
+      BufferedReader br = new BufferedReader(new FileReader("Logs.txt"));
+      while(temp!=null) {
+        temp = br.readLine();
+        if(temp == null) {
+          break;
+        }
+        logs.add(temp);
+        
+      }
+      br.close();
+      
+    } catch (FileNotFoundException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    } catch (IOException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
   }
   
   public Hub() {
@@ -44,6 +64,7 @@ public class Hub extends Device {
     Devices = FXCollections.observableArrayList();
     Users = FXCollections.observableArrayList();
     logs = FXCollections.observableArrayList();
+    this.startup();
     
   }
 
@@ -63,7 +84,23 @@ public class Hub extends Device {
     for(Thermostat t : this.getThermostats()) {
       t.setStatusProper(Status.OFF);
     }
-    logs.add("INFO - SYSTEM SHUTDOWN " + this.getIdentifier() );
+    logs.add("INFO - SYSTEM SHUTDOWN " );
+    try {
+      saveLogs();
+    } catch (IOException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+    
+  }
+  
+  public void saveLogs() throws IOException {
+    FileWriter writer = new FileWriter("Logs.txt", true);
+    for(String s : logs) {
+      writer.append(s+"\n");
+     
+    }
+    writer.close();
     
   }
 
@@ -240,8 +277,7 @@ public class Hub extends Device {
   }
 
   private void notifyClients(JSONObject pMsg) {
-    for (UserInterface c : aUsers.values()) {
-      c.notify(pMsg);
+    for (UserInterface c : Users) {
       log("Notified: " + c.toString());
     }
   }

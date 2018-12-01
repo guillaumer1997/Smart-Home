@@ -145,7 +145,7 @@ public class UserController {
   }
   
   @FXML
-  public void shutdownSystem(MouseEvent e) {
+  public void shutdownSystem(MouseEvent e) throws IOException {
     model.shutdown();
   }
 

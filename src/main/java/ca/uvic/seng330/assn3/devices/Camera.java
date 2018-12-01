@@ -4,7 +4,6 @@ import java.util.Date;
 
 import ca.uvic.seng330.assn3.Hub;
 import ca.uvic.seng330.assn3.HubRegistrationException;
-//import ca.uvic.seng330.assn3.Mediator;
 import ca.uvic.seng330.assn3.devices.Status;
 import javafx.application.Application;
 import javafx.beans.property.SimpleStringProperty;
@@ -14,6 +13,7 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.Labeled;
 import javafx.stage.Stage;
+
 
 public class Camera extends Device implements EventHandler<ActionEvent> {
 
@@ -161,6 +161,15 @@ public class Camera extends Device implements EventHandler<ActionEvent> {
       e1.printStackTrace();
     }
     } 
+  }
+  
+  public void userEntered() {
+    for(Lightbulb l : aMed.getLightBulbs()) {
+      if(l.getStatus() == Status.OFF) {
+        l.setStatusProper(Status.ON);
+        
+      }
+    }
   }
   
   public StringProperty getRecordingStatus() {
